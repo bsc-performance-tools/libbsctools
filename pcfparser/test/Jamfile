@@ -1,0 +1,21 @@
+# g++ -I /usr/local/boost/include/ -I ../ -L ../bin/gcc-4.4.3/debug/ -lParaverTraceConfig -L /usr/local/boost/lib/ -lboost_unit_test_framework TestUIParaverTraceConfig.cpp -o test
+
+import testing ;
+#using boost : 1.43 : <root>/usr/local/boost_1_43_0/ ;
+
+#using boost : 1.43 
+#   : <include>/usr/local/boost/include/
+#     <library>/usr/local/boost/lib
+#   ;
+
+
+project Test
+  :
+  :
+  ;
+
+
+test-suite UIParaverTraceConfig
+  :
+  [ run TestUIParaverTraceConfig.cpp ..//ParaverTraceConfig ] 
+  ;

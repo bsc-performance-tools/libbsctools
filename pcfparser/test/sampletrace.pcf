@@ -1,0 +1,233 @@
+STATES
+0    Idle
+1    Running
+2    Not created
+3    Waiting a message
+4    Bloking Send
+5    Thd. Synchr.
+6    Test/Probe
+7    Sched. and Fork/Join
+8    Wait/WaitAll
+9    Blocked
+10    Inmediate Send
+11    Inmediate Receive
+12    I/O
+13    Group Communication
+14    Tracing Disabled
+15    Others
+16    Send Receive
+
+
+STATES_COLOR
+0    {117,195,255}
+1    {0,0,255}
+2    {255,255,255}
+3    {255,0,0}
+4    {255,0,174}
+5    {179,0,0}
+6    {0,255,0}
+7    {255,255,0}
+8    {235,0,0}
+9    {0,162,0}
+10    {255,0,255}
+11    {100,100,177}
+12    {172,174,41}
+13    {255,144,26}
+14    {2,255,177}
+15    {192,224,0}
+16    {255,0,255}
+
+
+DEFAULT_OPTIONS
+
+LEVEL               THREAD
+UNITS               NANOSEC
+LOOK_BACK           100
+SPEED               1
+FLAG_ICONS          ENABLED
+NUM_OF_STATE_COLORS 38
+YMAX_SCALE          37
+
+
+DEFAULT_SEMANTIC
+
+THREAD_FUNC          State As Is
+
+
+EVENT_TYPE
+6    40000001    Application
+6    40000003    Flushing Traces
+6    40000004    I/O Read
+6    40000005    I/O Write
+VALUES
+1      Begin
+0      End
+
+
+EVENT_TYPE
+6    40000012    Tracing
+VALUES
+0      Disabled
+1      Enabled
+
+
+EVENT_TYPE
+6    40000011    I/O Size
+
+
+EVENT_TYPE
+1    51000001    Send Size in MPI Global OP
+1    51000002    Recv Size in MPI Global OP
+1    51000003    Root in MPI Global OP
+1    51000004    Communicator in MPI Global OP
+
+
+EVENT_TYPE
+9   50000001    MPI Point-to-point
+VALUES
+4   MPI_Irecv
+3   MPI_Isend
+5   MPI_Wait
+6   MPI_Waitall
+0   End
+
+
+EVENT_TYPE
+9   50000002    MPI Collective Comm
+VALUES
+10   MPI_Allreduce
+8   MPI_Barrier
+7   MPI_Bcast
+9   MPI_Reduce
+0   End
+
+
+EVENT_TYPE
+9   50000003    MPI Other
+VALUES
+22   MPI_Comm_dup
+19   MPI_Comm_rank
+20   MPI_Comm_size
+23   MPI_Comm_split
+32   MPI_Finalize
+31   MPI_Init
+0   End
+
+
+GRADIENT_COLOR
+0    {0,255,2}
+1    {0,244,13}
+2    {0,232,25}
+3    {0,220,37}
+4    {0,209,48}
+5    {0,197,60}
+6    {0,185,72}
+7    {0,173,84}
+8    {0,162,95}
+9    {0,150,107}
+10    {0,138,119}
+11    {0,127,130}
+12    {0,115,142}
+13    {0,103,154}
+14    {0,91,166}
+
+
+GRADIENT_NAMES
+0    Gradient 0
+1    Grad. 1/MPI Events
+2    Grad. 2/OMP Events
+3    Grad. 3/OMP locks
+4    Grad. 4/User func
+5    Grad. 5/User Events
+6    Grad. 6/General Events
+7    Grad. 7/Hardware Counters
+8    Gradient 8
+9    Gradient 9
+10    Gradient 10
+11    Gradient 11
+12    Gradient 12
+13    Gradient 13
+14    Gradient 14
+
+
+EVENT_TYPE
+0    70000000    MPI caller
+VALUES
+0   End
+1   setup_mpi_
+2   mpbt
+3   copy_faces_
+4   x_send_solve_info_
+5   x_receive_solve_info_
+6   x_solve_
+7   x_send_backsub_info_
+8   x_receive_backsub_info_
+9   y_send_solve_info_
+10   y_receive_solve_info_
+11   y_solve_
+12   y_send_backsub_info_
+13   y_receive_backsub_info_
+14   z_send_solve_info_
+15   z_receive_solve_info_
+16   z_solve_
+17   z_send_backsub_info_
+18   z_receive_backsub_info_
+19   error_norm_
+20   rhs_norm_
+
+
+EVENT_TYPE
+0    80000000    MPI caller line
+VALUES
+0   End
+1   21 (setup_mpi.f) [0x10025b98]
+2   22 (setup_mpi.f) [0x10025bb0]
+3   53 (setup_mpi.f) [0x10025c98]
+4   106 (bt.f) [0x100071d4]
+5   109 (bt.f) [0x100071f8]
+6   112 (bt.f) [0x10007224]
+7   168 (copy_faces.f) [0x10012670]
+8   171 (copy_faces.f) [0x100126ac]
+9   174 (copy_faces.f) [0x100126e8]
+10   177 (copy_faces.f) [0x10012724]
+11   180 (copy_faces.f) [0x10012760]
+12   183 (copy_faces.f) [0x1001279c]
+13   187 (copy_faces.f) [0x100127d4]
+14   190 (copy_faces.f) [0x1001280c]
+15   193 (copy_faces.f) [0x10012844]
+16   196 (copy_faces.f) [0x1001287c]
+17   199 (copy_faces.f) [0x100128b4]
+18   202 (copy_faces.f) [0x100128ec]
+19   207 (copy_faces.f) [0x1001290c]
+20   194 (x_solve.f) [0x1001bc98]
+21   319 (x_solve.f) [0x1001c940]
+22   70 (x_solve.f) [0x1001b100]
+23   71 (x_solve.f) [0x1001b114]
+24   236 (x_solve.f) [0x1001c29c]
+25   291 (x_solve.f) [0x1001c860]
+26   98 (x_solve.f) [0x1001b098]
+27   99 (x_solve.f) [0x1001b0ac]
+28   193 (y_solve.f) [0x1001f838]
+29   318 (y_solve.f) [0x100204e0]
+30   69 (y_solve.f) [0x1001eca0]
+31   70 (y_solve.f) [0x1001ecb4]
+32   235 (y_solve.f) [0x1001fe3c]
+33   291 (y_solve.f) [0x10020400]
+34   97 (y_solve.f) [0x1001ec38]
+35   98 (y_solve.f) [0x1001ec4c]
+36   190 (z_solve.f) [0x100222d0]
+37   318 (z_solve.f) [0x10022f80]
+38   67 (z_solve.f) [0x10021760]
+39   68 (z_solve.f) [0x10021774]
+40   233 (z_solve.f) [0x100228dc]
+41   290 (z_solve.f) [0x10022ea0]
+42   95 (z_solve.f) [0x100216f8]
+43   96 (z_solve.f) [0x1002170c]
+44   147 (bt.f) [0x100072dc]
+45   49 (error.f) [0x100246c8]
+46   94 (error.f) [0x10024ce8]
+47   171 (bt.f) [0x10007438]
+48   193 (bt.f) [0x10007794]
+49   194 (bt.f) [0x100077a0]
+
+

@@ -1,0 +1,25 @@
+using boost : 1.43 : <root>/usr/local/boost_1_43_0/ ;
+
+#using boost : 1.43 
+#   : <include>/usr/local/boost/include/
+#     <library>/usr/local/boost/lib
+#   ;
+
+project libpcfparser
+  : requirements <include>/usr/local/boost/include
+  ;
+
+alias ParaverTraceConfig_sources
+	:
+	UIParaverTraceConfig.cpp
+	ParaverTraceConfig.cpp
+	;
+
+lib ParaverTraceConfig
+	:
+	ParaverTraceConfig_sources 
+	:
+	:
+	<c++-template-depth>192
+	: <include>. 
+	;
