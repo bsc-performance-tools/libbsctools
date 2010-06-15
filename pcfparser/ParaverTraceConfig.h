@@ -63,12 +63,9 @@ public:
     };
 
     class EventType : public UIParaverTraceConfig::EventType {
-        typedef boost::shared_ptr<EventValues> EventValuesPtr;
-
-    protected:
-        EventValuesPtr eventValues;
-
     public:
+        typedef boost::shared_ptr<EventValues> EventValuesPtr;
+        
         EventType(int color_, int key_, std::string descr_);
 
         const EventValuesPtr getEventValues() const;
@@ -76,6 +73,9 @@ public:
         void setEventValues(EventValues * eventValues_);
 
         virtual std::string toString() const;
+    protected:
+        EventValuesPtr eventValues;
+
     };
 
     typedef std::string::const_iterator string_iterator_type;

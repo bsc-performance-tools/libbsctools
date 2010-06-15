@@ -465,7 +465,7 @@ int ParaverTraceConfig::EventValues::getValue(const std::string eventValue) cons
     EventValues::eventValues_type::const_iterator begin = eventValues.begin();
     EventValues::eventValues_type::const_iterator end = eventValues.end();
     while (begin != end) {
-        if (begin->second.compare(eventValue)) {
+        if (begin->second.compare(eventValue)==0) {
             return begin->first;
         }
         begin++;
