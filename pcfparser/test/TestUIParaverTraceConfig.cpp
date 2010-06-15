@@ -156,6 +156,63 @@ BOOST_AUTO_TEST_CASE( getStateColor_test ){
 	BOOST_CHECK(sc1 == t1->getStateColor(keys[16]));
 }
 
+BOOST_AUTO_TEST_CASE( getGradientName_test ){
+	/* GRADIENT_NAMES
+	 * 0    Gradient 0
+	 * 1    Grad. 1/MPI Events
+	 * 2    Grad. 2/OMP Events
+	 * 3    Grad. 3/OMP locks
+	 * 4    Grad. 4/User func
+	 * 5    Grad. 5/User Events
+	 * 6    Grad. 6/General Events
+	 * 7    Grad. 7/Hardware Counters
+	 * 8    Gradient 8
+	 * 9    Gradient 9
+	 * 10    Gradient 10
+	 * 11    Gradient 11
+	 * 12    Gradient 12
+	 * 13    Gradient 13
+	 * 14    Gradient 14
+	 */
+	std::vector<int> keys;
+	keys = t1->getGradientNames();
+
+	BOOST_CHECK(t1->getGradientName(keys[0]).compare("Gradient 0")==0);
+	BOOST_CHECK(t1->getGradientName(keys[7]).compare("Grad. 7/Hardware Counters")==0);
+	BOOST_CHECK(t1->getGradientName(keys[14]).compare("Gradient 14")==0);
+}
+
+BOOST_AUTO_TEST_CASE( getGradientColor_test ){
+	/* GRADIENT_COLOR
+	 * 0    {0,255,2}
+	 * 1    {0,244,13}
+	 * 2    {0,232,25}
+	 * 3    {0,220,37}
+	 * 4    {0,209,48}
+	 * 5    {0,197,60}
+	 * 6    {0,185,72}
+	 * 7    {0,173,84}
+	 * 8    {0,162,95}
+	 * 9    {0,150,107}
+	 * 10    {0,138,119}
+	 * 11    {0,127,130}
+	 * 12    {0,115,142}
+	 * 13    {0,103,154}
+	 * 14    {0,91,166}
+	 */
+	std::vector<int> keys;
+	keys = t1->getGradientColors();
+
+	libparaver::UIParaverTraceConfig::GradientColor gc1(0, 255, 2);
+	BOOST_CHECK(gc1 == t1->getGradientColor(keys[0]));
+	BOOST_CHECK(gc1 != t1->getGradientColor(keys[1]));
+	gc1.setRed(0);
+	gc1.setGreen(91);
+	gc1.setBlue(166);
+	BOOST_CHECK(gc1 == t1->getGradientColor(keys[14]));
+}
+
+
 BOOST_AUTO_TEST_CASE( getEventType_test ){
 	BOOST_CHECK(t1->getEventType("Send Size in MPI Global OP") == 51000001);
 	BOOST_CHECK(t1->getEventType(51000001).compare("Send Size in MPI Global OP")==0);
