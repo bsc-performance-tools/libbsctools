@@ -204,7 +204,7 @@ public:
 
     std::vector<unsigned int > getEventTypes() const;
 
-    std::vector<unsigned int > getEventValuesFromEventTypeKey(unsigned int eventTypeKey) const;
+    std::vector<unsigned int > getEventValues(unsigned int eventTypeKey) const;
 };
 
 #include "ParaverTraceConfig.ipp"

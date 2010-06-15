@@ -255,7 +255,7 @@ BOOST_AUTO_TEST_CASE( getEventValue_test ){
 
 	unsigned int MPIGlobals = t1->getEventType("MPI Point-to-point");
 	
-	values = t1->getEventValuesFromEventTypeKey(MPIGlobals);
+	values = t1->getEventValues(MPIGlobals);
 	BOOST_CHECK(values.size() == 5);
 	BOOST_CHECK(t1->getEventValue(MPIGlobals, "MPI_Irecv") == 4);
 	BOOST_CHECK(t1->getEventValue(MPIGlobals, 4).compare("MPI_Irecv") == 0);

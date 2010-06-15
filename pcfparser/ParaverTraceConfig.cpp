@@ -375,7 +375,7 @@ std::vector<unsigned int > ParaverTraceConfig::getEventTypes() const {
     return keys;
 }
 
-std::vector<unsigned int > ParaverTraceConfig::getEventValuesFromEventTypeKey(unsigned int eventTypeKey) const {
+std::vector<unsigned int > ParaverTraceConfig::getEventValues(unsigned int eventTypeKey) const {
     if (event_types.find(eventTypeKey) == event_types.end()) {
         BOOST_THROW_EXCEPTION(UIParaverTraceConfig::value_not_found());
     }

@@ -292,8 +292,8 @@ std::vector<unsigned int > UIParaverTraceConfig::getEventTypes() const {
  * \brief This method returns an integer vector with a list of event value keys from an event type key.
  * \return An integer vector with the list of event value keys.
  */
-std::vector<unsigned int > UIParaverTraceConfig::getEventValuesFromEventTypeKey(unsigned int eventTypeKey) const {
-    return traceConfig->getEventValuesFromEventTypeKey(eventTypeKey);
+std::vector<unsigned int > UIParaverTraceConfig::getEventValues(unsigned int eventTypeKey) const {
+    return traceConfig->getEventValues(eventTypeKey);
 }
 
 std::ostream & operator<<(std::ostream & os, const UIParaverTraceConfig & ptraceConfig) {
