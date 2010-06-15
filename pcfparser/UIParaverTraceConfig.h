@@ -33,10 +33,20 @@ public:
         virtual ~Color();
 
         inline const int getRed() const;
+        
+        void setRed(int color);
 
         inline const int getGreen() const;
+        
+        void setGreen(int color);
 
         inline const int getBlue() const;
+        
+        void setBlue(int color);
+
+        bool operator==(const Color & sc) const;
+        
+        bool operator!=(const Color & sc) const;
 
         virtual std::string toString() const;
     };

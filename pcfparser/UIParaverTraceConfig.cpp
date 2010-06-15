@@ -319,6 +319,31 @@ std::string UIParaverTraceConfig::Color::toString() const {
     return "";
 }
 
+void UIParaverTraceConfig::Color::setRed(int color){
+	red = color;
+}
+
+void UIParaverTraceConfig::Color::setGreen(int color){
+	green = color;
+}
+
+void UIParaverTraceConfig::Color::setBlue(int color){
+	blue = color;
+}
+
+bool UIParaverTraceConfig::Color::operator==(const Color & sc) const{
+	return green == sc.getGreen() &&
+		red == sc.getRed() &&
+		blue == sc.getBlue();
+}
+
+bool UIParaverTraceConfig::Color::operator!=(const Color & sc) const{
+	return green != sc.getGreen() ||
+		red != sc.getRed() ||
+		blue != sc.getBlue();
+}
+
+
 /* StateColor class */
 
 UIParaverTraceConfig::StateColor::StateColor(int red_, int green_, int blue_):
