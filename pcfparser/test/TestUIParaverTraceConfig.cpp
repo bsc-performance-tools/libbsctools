@@ -210,6 +210,7 @@ BOOST_AUTO_TEST_CASE( getGradientColor_test ){
 	gc1.setGreen(91);
 	gc1.setBlue(166);
 	BOOST_CHECK(gc1 == t1->getGradientColor(keys[14]));
+	BOOST_CHECK_THROW(gc1 == t1->getGradientColor(keys[15]));
 }
 
 
