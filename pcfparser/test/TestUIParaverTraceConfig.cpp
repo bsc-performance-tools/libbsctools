@@ -123,6 +123,8 @@ BOOST_AUTO_TEST_CASE( getStates_test ){
 	BOOST_CHECK(t1->getState(keys[0]).compare("Idle") == 0);
 	BOOST_CHECK(t1->getState(keys[6]).compare("Test/Probe") == 0);
 	BOOST_CHECK(t1->getState(keys[16]).compare("Send Receive") == 0);
+	BOOST_CHECK_THROW(t1->getState(18),
+		libparaver::UIParaverTraceConfig::value_not_found);
 }
 
 BOOST_AUTO_TEST_CASE( getStateColor_test ){
@@ -154,6 +156,8 @@ BOOST_AUTO_TEST_CASE( getStateColor_test ){
 	sc1.setRed(255);
 	sc1.setGreen(0);
 	BOOST_CHECK(sc1 == t1->getStateColor(keys[16]));
+	BOOST_CHECK_THROW(sc1 == t1->getGradientColor(keys[17]),
+		libparaver::UIParaverTraceConfig::value_not_found);
 }
 
 BOOST_AUTO_TEST_CASE( getGradientName_test ){
@@ -180,6 +184,8 @@ BOOST_AUTO_TEST_CASE( getGradientName_test ){
 	BOOST_CHECK(t1->getGradientName(keys[0]).compare("Gradient 0")==0);
 	BOOST_CHECK(t1->getGradientName(keys[7]).compare("Grad. 7/Hardware Counters")==0);
 	BOOST_CHECK(t1->getGradientName(keys[14]).compare("Gradient 14")==0);
+	BOOST_CHECK_THROW(t1->getGradientName(keys[15]),
+		libparaver::UIParaverTraceConfig::value_not_found);
 }
 
 BOOST_AUTO_TEST_CASE( getGradientColor_test ){
@@ -210,14 +216,54 @@ BOOST_AUTO_TEST_CASE( getGradientColor_test ){
 	gc1.setGreen(91);
 	gc1.setBlue(166);
 	BOOST_CHECK(gc1 == t1->getGradientColor(keys[14]));
-	BOOST_CHECK_THROW(gc1 == t1->getGradientColor(keys[15]));
+	BOOST_CHECK_THROW(gc1 == t1->getGradientColor(keys[15]),
+		libparaver::UIParaverTraceConfig::value_not_found);
 }
 
 
 BOOST_AUTO_TEST_CASE( getEventType_test ){
 	BOOST_CHECK(t1->getEventType("Send Size in MPI Global OP") == 51000001);
+	BOOST_CHECK_THROW(t1->getEventType("AAAAAAA"), 
+		libparaver::UIParaverTraceConfig::value_not_found);
 	BOOST_CHECK(t1->getEventType(51000001).compare("Send Size in MPI Global OP")==0);
+	BOOST_CHECK_THROW(t1->getEventType(0), 
+		libparaver::UIParaverTraceConfig::value_not_found);
+	
+	std::vector<unsigned int> keys;
+	keys = t1->getEventTypes();
+	BOOST_CHECK(keys.size() == 15);
+	BOOST_CHECK(t1->getEventType(keys[0]).compare("Application")==0);
+	BOOST_CHECK(t1->getEventType(keys[5]).compare("Tracing")==0);
+	BOOST_CHECK(t1->getEventType(keys[14]).compare("MPI caller line")==0);
+	BOOST_CHECK_THROW(t1->getEventType(100), 
+		libparaver::UIParaverTraceConfig::value_not_found);
+	BOOST_CHECK_THROW(t1->getEventType(keys[100]), 
+		libparaver::UIParaverTraceConfig::value_not_found);
 }
 
+BOOST_AUTO_TEST_CASE( getEventValue_test ){
+	/* EVENT_TYPE
+	 * 9   50000001    MPI Point-to-point
+	 * VALUES
+	 * 4   MPI_Irecv
+	 * 3   MPI_Isend
+	 * 5   MPI_Wait
+	 * 6   MPI_Waitall
+	 * 0   End
+	 */
+	std::vector<unsigned int> values;
+
+	unsigned int MPIGlobals = t1->getEventType("MPI Point-to-point");
+	
+	values = t1->getEventValuesFromEventTypeKey(MPIGlobals);
+	BOOST_CHECK(values.size() == 5);
+	BOOST_CHECK(t1->getEventValue(MPIGlobals, "MPI_Irecv") == 4);
+	BOOST_CHECK(t1->getEventValue(MPIGlobals, 4).compare("MPI_Irecv") == 0);
+	BOOST_CHECK(t1->getEventValue(MPIGlobals, 0).compare("End") == 0);
+	BOOST_CHECK_THROW(t1->getEventValue(MPIGlobals, 1000), 
+		libparaver::UIParaverTraceConfig::value_not_found);
+	BOOST_CHECK_THROW(t1->getEventValue(90000, 10), 
+		libparaver::UIParaverTraceConfig::value_not_found);
+}
 
 BOOST_AUTO_TEST_SUITE_END()
