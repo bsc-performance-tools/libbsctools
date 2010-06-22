@@ -1,5 +1,5 @@
 project libpcfparser
-  : requirements <include>../boost
+  : requirements <include>../boost_1_43_0
   : requirements <include>/usr/local/boost/include
   ;
 
