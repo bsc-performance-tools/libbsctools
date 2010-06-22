@@ -1,7 +1,56 @@
+# Usage:
+#
+#   bjam [properties] [install]
+#
+#   Builds and installs the ParaverTraceConfig library.
+#
+# Targets and Related Options:
+#
+#   install                 Install headers and compiled library files to the
+#   =======                 configured locations (below).
+#
+#   --prefix=<PREFIX>       Install architecture independent files here.
+#                           Default; C:\Boost on Win32
+#                           Default; /usr/local on Unix. Linux, etc.
+#
+#   --libdir=<DIR>          Install library files here.
+#                           Default; <PREFIX>/lib
+#
+#   --includedir=<HDRDIR>   Install header files here.
+#                           Default; <PREFIX>/include
+#
+#   --help                  This message.
+#
+# Properties:
+#
+#   toolset=toolset         Indicates the toolset to build with.
+#
+#   variant=debug|release   Select the build variant
+#
+#   link=static|shared      Whether to build static or shared libraries
+#
+#   runtime-link=static|shared      
+#                           Whether to link to static or shared C and C++ runtime.
+#
+#   address-model=16|32|64|32_64
+#                           Generate 16-,32-, or 64-bit code.
+#
+#
+# Note: Go to web page for more options:
+# http://www.boost.org/boost-build2/doc/html/bbv2/overview/invocation.html
+#
+#
+
+
 project libpcfparser
   : requirements <include>../boost_1_43_0
   : requirements <include>/usr/local/boost/include
   ;
+
+alias ParaverTraceConfig_api_header
+	:
+	UIParaverTraceConfig.h
+	;
 
 alias ParaverTraceConfig_sources
 	:
@@ -17,3 +66,31 @@ lib ParaverTraceConfig
 	<c++-template-depth>192
 	: <include>. 
 	;
+
+# Possible stage only location.
+local prefix = [ MATCH "^--prefix=(.*)" : [ modules.peek : ARGV ] ] ;
+prefix ?= /usr/local/ ;
+path-constant PREFIX : $(prefix) ;
+
+local libdir = [ MATCH "^--libdir=(.*)" : [ modules.peek : ARGV ] ] ;
+libdir ?= /lib ;
+path-constant LIBDIR : $(PREFIX)/$(libdir) ;
+
+local includedir = [ MATCH "^--includedir==(.*)" : [ modules.peek : ARGV ] ] ;
+includedir ?= /include ;
+path-constant INCLUDEDIR : $(PREFIX)/$(includedir) ;
+
+explicit install-libParaverTraceConfig ;
+install install-libParaverTraceConfig
+	: ParaverTraceConfig
+	: <location>$(LIBDIR)
+	;
+
+explicit install-libParaverTraceConfig_api_header ;
+install install-libParaverTraceConfig_api_header
+	: ParaverTraceConfig_api_header
+	: <location>$(INCLUDEDIR)
+	;
+
+explicit install ;
+install install : install-libParaverTraceConfig install-libParaverTraceConfig_api_header ;
