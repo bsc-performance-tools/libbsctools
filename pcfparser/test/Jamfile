@@ -1,15 +1,4 @@
 import testing ;
-import boost ;
-
-using boost : 1.43 : <root>../../boost_1_43_0/ ;
-
-#using boost : 1.43 
-#   : <include>/usr/local/boost/include/
-#     <library>/usr/local/boost/lib
-#   ;
-
-
-boost.use-project 1.43 ;
 
 project Test
   :
@@ -19,5 +8,5 @@ project Test
 
 test-suite UIParaverTraceConfig
   :
-  [ run TestUIParaverTraceConfig.cpp ..//ParaverTraceConfig : <library>/boost//test ] 
+  [ run TestUIParaverTraceConfig.cpp ..//ParaverTraceConfig ] 
   ;
