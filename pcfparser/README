@@ -1,3 +1,4 @@
 This library depends on:
+- G++ 4.4
 - Boost 1.43
   - Spirit (only headers)
