@@ -156,8 +156,8 @@ BOOST_AUTO_TEST_CASE( getStateColor_test ){
 	sc1.setRed(255);
 	sc1.setGreen(0);
 	BOOST_CHECK(sc1 == t1->getStateColor(keys[16]));
-	BOOST_CHECK_THROW(sc1 == t1->getGradientColor(keys[17]),
-		libparaver::UIParaverTraceConfig::value_not_found);
+	BOOST_CHECK_THROW(sc1 == t1->getGradientColor(keys.at(17)),
+		std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( getGradientName_test ){
@@ -184,8 +184,8 @@ BOOST_AUTO_TEST_CASE( getGradientName_test ){
 	BOOST_CHECK(t1->getGradientName(keys[0]).compare("Gradient 0")==0);
 	BOOST_CHECK(t1->getGradientName(keys[7]).compare("Grad. 7/Hardware Counters")==0);
 	BOOST_CHECK(t1->getGradientName(keys[14]).compare("Gradient 14")==0);
-	BOOST_CHECK_THROW(t1->getGradientName(keys[15]),
-		libparaver::UIParaverTraceConfig::value_not_found);
+	BOOST_CHECK_THROW(t1->getGradientName(keys.at(15)),
+		std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( getGradientColor_test ){
@@ -216,8 +216,8 @@ BOOST_AUTO_TEST_CASE( getGradientColor_test ){
 	gc1.setGreen(91);
 	gc1.setBlue(166);
 	BOOST_CHECK(gc1 == t1->getGradientColor(keys[14]));
-	BOOST_CHECK_THROW(gc1 == t1->getGradientColor(keys[15]),
-		libparaver::UIParaverTraceConfig::value_not_found);
+	BOOST_CHECK_THROW(gc1 == t1->getGradientColor(keys.at(15)),
+		std::out_of_range);
 }
 
 
@@ -237,8 +237,8 @@ BOOST_AUTO_TEST_CASE( getEventType_test ){
 	BOOST_CHECK(t1->getEventType(keys[14]).compare("MPI caller line")==0);
 	BOOST_CHECK_THROW(t1->getEventType(100), 
 		libparaver::UIParaverTraceConfig::value_not_found);
-	BOOST_CHECK_THROW(t1->getEventType(keys[100]), 
-		libparaver::UIParaverTraceConfig::value_not_found);
+	BOOST_CHECK_THROW(t1->getEventType(keys.at(100)), 
+		std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( getEventValue_test ){
