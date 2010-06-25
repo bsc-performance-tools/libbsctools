@@ -21,3 +21,5 @@ libparavertraceconfig_la_LDFLAGS  =
 libparavertraceconfig_la_CXXFLAGS = -I $(BOOST_DIR)
 # libparavertraceconfig_la_CFLAGS = -I $(BOOST_INCLUDES)
 
+SUBDIRS = . test
+

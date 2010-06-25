@@ -114,6 +114,6 @@ AC_SUBST(BOOST_DIR)
 #    Checks for user defined options    #
 #########################################
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile test/Makefile])
 AC_OUTPUT
 
