@@ -6,6 +6,12 @@
 #
 # Targets and Related Options:
 #
+#   --boost-dir=<BOOST_DIR> Defines the path to the BOOST root dir from untar boost package
+#
+#   --boost-include-dir=<BOOST_INCLUDE_DIR>
+#                           Defines the path to the BOOST include dir
+#                           
+#
 #   install                 Install headers and compiled library files to the
 #   =======                 configured locations (below).
 #
@@ -42,9 +48,27 @@
 #
 
 
+
+local boost_root_dir = [ MATCH "^--boost-dir=(.*)" : [ modules.peek : ARGV ] ] ;
+local boost_include_dir = [ MATCH "^--boost-include-dir=(.*)" : [ modules.peek : ARGV ] ] ;
+local BOOST_INCLUDE_DIR ; 
+
+if $(boost_root_dir) {
+	ECHO "Using BOOST include dir in \"$(boost_root_dir)\"" ;
+	BOOST_INCLUDE_DIR = $(boost_root_dir) ;
+} else if $(boost_include_dir) {
+	ECHO  "Using BOOST include dir in \" $(boost_include_dir)\"" ;
+	BOOST_INCLUDE_DIR = $(boost_include_dir) ;
+} else {
+	EXIT "BOOST's include directory must be defined!!!. Type \"bjam --help\" for help" : -1 ;
+}
+
+
+
+
 project libpcfparser
-  : requirements <include>../boost_1_43_0
-  : requirements <include>/usr/local/boost/include
+  : source-location src
+  : requirements <cxxflags>"-I$(BOOST_INCLUDE_DIR)"
   ;
 
 alias ParaverTraceConfig_api_header
@@ -62,11 +86,16 @@ lib ParaverTraceConfig
 	:
 	ParaverTraceConfig_sources 
 	:
-	:
 	<c++-template-depth>192
-	: <include>. 
+	:
+	: <include>./src
 	;
 
+build-project src/test ;
+
+#####################################################################3
+# INSTALLATION
+#####################################################################3
 # Possible stage only location.
 local prefix = [ MATCH "^--prefix=(.*)" : [ modules.peek : ARGV ] ] ;
 prefix ?= /usr/local/ ;
@@ -76,7 +105,7 @@ local libdir = [ MATCH "^--libdir=(.*)" : [ modules.peek : ARGV ] ] ;
 libdir ?= /lib ;
 path-constant LIBDIR : $(PREFIX)/$(libdir) ;
 
-local includedir = [ MATCH "^--includedir==(.*)" : [ modules.peek : ARGV ] ] ;
+local includedir = [ MATCH "^--includedir=(.*)" : [ modules.peek : ARGV ] ] ;
 includedir ?= /include ;
 path-constant INCLUDEDIR : $(PREFIX)/$(includedir) ;
 

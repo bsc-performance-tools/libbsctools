@@ -8,5 +8,5 @@ project Test
 
 test-suite UIParaverTraceConfig
   :
-  [ run TestUIParaverTraceConfig.cpp ..//ParaverTraceConfig ] 
+  [ run TestUIParaverTraceConfig.cpp ../..//ParaverTraceConfig ] 
   ;

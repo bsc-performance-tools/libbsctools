@@ -12,9 +12,13 @@ struct SampleTrace {
     SampleTrace(){
 		BOOST_TEST_MESSAGE( "Setup SampleTrace fixture" );
 		t1 = new libparaver::UIParaverTraceConfig();
-		std::string filename = "sampletrace.pcf";
+		std::string filename = "src/test/sampletrace.pcf";
 		fb.open(filename.c_str(), std::ios::in);
 		std::istream is(&fb);
+		if(!is.good()){
+			std::cout<<"Error opening "<<filename<<std::endl;
+			throw std::exception();
+		}
 		t1->parse(is, filename);
 	}
     ~SampleTrace(){
@@ -29,10 +33,14 @@ struct SampleTrace {
 
 BOOST_AUTO_TEST_CASE( Parsing_sampletrace_pcf ){
 	libparaver::UIParaverTraceConfig * t1 = new libparaver::UIParaverTraceConfig();
-	std::string filename = "sampletrace.pcf";
+	std::string filename = "src/test/sampletrace.pcf";
 	std::filebuf fb;
 	fb.open(filename.c_str(), std::ios::in);
 	std::istream is(&fb);
+	if(!is.good()){
+		std::cout<<"Error opening "<<filename<<std::endl;
+		throw std::exception();
+	}
 	BOOST_CHECK(t1->parse(is, filename));
 	fb.close();
 	delete t1;
