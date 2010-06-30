@@ -1,5 +1,4 @@
 Dependencies:
 
-- gcc 4.4.x
+- gcc 4.3.x
 - Boost 1.43 (http://sourceforge.net/projects/boost/files/boost/1.43.0/)
-  Download and decompress the file inside this directory.
