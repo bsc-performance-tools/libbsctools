@@ -6,6 +6,9 @@
 #
 # Targets and Related Options:
 #
+#   --boost-build=<BOOST_BUILD>
+#                           Defines the path to the boost-build support files 
+#
 #   --boost-dir=<BOOST_DIR> Defines the path to the BOOST root dir from untar boost package
 #
 #   --boost-include-dir=<BOOST_INCLUDE_DIR>
