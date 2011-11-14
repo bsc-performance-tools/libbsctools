@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <iomanip>
 
 #include <boost/shared_ptr.hpp>
 #include <boost/throw_exception.hpp>
