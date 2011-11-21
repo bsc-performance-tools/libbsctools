@@ -1,0 +1,10 @@
+EVENT_TYPE
+6    40000001    Application
+6    40000003    Flushing Traces
+6    40000004    I/O Read
+6    40000005    I/O Write
+VALUES
+1      Begin
+0      End
+
+
