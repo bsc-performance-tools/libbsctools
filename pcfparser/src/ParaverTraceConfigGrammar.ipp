@@ -12,6 +12,7 @@ ParaverTraceConfigGrammar<Iterator, ActionHandler>::ParaverTraceConfigGrammar(Ac
     numeric_index %= qi::lexeme[qi::int_];
 
     phrase.name("phrase");
+    /* a % b is equal to "a >> *(b >> a)" */
     phrase %= qi::lexeme[+(ascii::char_ - qi::eol)];
 
     /* PCF grammar */
