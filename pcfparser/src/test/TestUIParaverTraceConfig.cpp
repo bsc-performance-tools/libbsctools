@@ -7,19 +7,21 @@
 
 #include "UIParaverTraceConfig.h"
 
+#define TESTPATH "/home/xavierp/BSC/libtools/trunk/pcfparser/src/test/"
+//#define TESTPATH "src/test/"
 
 struct SampleTrace {
     SampleTrace(){
 		BOOST_TEST_MESSAGE( "Setup SampleTrace fixture" );
 		t1 = new libparaver::UIParaverTraceConfig();
-		std::string filename = "src/test/sampletrace.pcf";
+		std::string filename = TESTPATH; filename += "sampletrace.pcf";
 		fb.open(filename.c_str(), std::ios::in);
 		std::istream is(&fb);
 		if(!is.good()){
 			std::cout<<"Error opening "<<filename<<std::endl;
 			throw std::exception();
 		}
-		t1->parse(is, filename);
+		t1->parse(filename);
 	}
     ~SampleTrace(){
 		BOOST_TEST_MESSAGE( "Teardown SampleTrace fixture" );
@@ -33,7 +35,7 @@ struct SampleTrace {
 
 BOOST_AUTO_TEST_CASE( Parsing_sampletrace_pcf ){
 	libparaver::UIParaverTraceConfig * t1 = new libparaver::UIParaverTraceConfig();
-	std::string filename = "src/test/sampletrace.pcf";
+	std::string filename = TESTPATH; filename += "sampletrace.pcf";
 	std::filebuf fb;
 	fb.open(filename.c_str(), std::ios::in);
 	std::istream is(&fb);
@@ -41,11 +43,73 @@ BOOST_AUTO_TEST_CASE( Parsing_sampletrace_pcf ){
 		std::cout<<"Error opening "<<filename<<std::endl;
 		throw std::exception();
 	}
-	BOOST_CHECK(t1->parse(is, filename));
+	BOOST_CHECK(t1->parse(filename));
 	fb.close();
 	delete t1;
 }
 
+BOOST_AUTO_TEST_CASE( Parsing_badtrace_pcf ){
+    libparaver::UIParaverTraceConfig * t1 = new libparaver::UIParaverTraceConfig();
+    t1->setDebug(false);
+	std::string filename = TESTPATH; filename += "badtrace.pcf";
+	BOOST_CHECK_NO_THROW(t1->parse(filename));
+
+    // 6    40000011    I/O Size
+    BOOST_CHECK_NO_THROW(t1->getEventType("I/O Size"));
+
+    /*
+    EVENT_TYPE
+    1    51000001    Send Size in MPI Global OP
+    1    Recv Size in MPI Global OP   <<--- Wrong format. All set discarded!
+    1    51000003    Root in MPI Global OP
+    1    51000004    Communicator in MPI Global OP
+    */
+    BOOST_CHECK_THROW(t1->getEventType("Send Size in MPI Global OP"),
+        libparaver::UIParaverTraceConfig::value_not_found);
+    BOOST_CHECK_THROW(t1->getEventType("Recv Size in MPI Global OP"),
+        libparaver::UIParaverTraceConfig::value_not_found);
+    BOOST_CHECK_THROW(t1->getEventType("Root in MPI Global OP"),
+        libparaver::UIParaverTraceConfig::value_not_found);
+
+    // Continuing parsing
+    /*
+    EVENT_TYPE
+    9   50000001    MPI Point-to-point
+    VALUES
+    4   MPI_Irecv
+    */
+    BOOST_CHECK_NO_THROW(t1->getEventType("MPI Point-to-point"));
+
+	delete t1;
+}
+
+BOOST_AUTO_TEST_CASE( Parsing_bad_matmul_wf_pcf ){
+    libparaver::UIParaverTraceConfig * t1 = new libparaver::UIParaverTraceConfig();
+    t1->setDebug(false);
+	std::string filename = TESTPATH; filename += "matmul_wf.pcf";
+	BOOST_CHECK_NO_THROW(t1->parse(filename));
+
+    /*
+    EVENT_TYPE
+    9200006 Memory allocation in device cache
+    VALUES
+                   <<Wrong format. Values token implies instances. Event discarded
+    */
+
+    BOOST_CHECK_THROW(t1->getEventType("Memory allocation in device cache"),
+        libparaver::UIParaverTraceConfig::value_not_found);
+
+	delete t1;
+}
+BOOST_AUTO_TEST_CASE( Parsing_bad_matmul_wf_pcf_with_exception_resend ){
+    libparaver::UIParaverTraceConfig * t1 = new libparaver::UIParaverTraceConfig();
+    t1->setDebug(false);
+	std::string filename = TESTPATH; filename += "matmul_wf.pcf";
+	BOOST_CHECK_THROW(t1->parse(filename, true),
+        libparaver::UIParaverTraceConfig::pcf_format_error);
+
+	delete t1;
+}
 
 BOOST_FIXTURE_TEST_SUITE( Test_Using_SampleTrace_fixture, SampleTrace )
 

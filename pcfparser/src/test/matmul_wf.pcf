@@ -1,0 +1,418 @@
+DEFAULT_OPTIONS
+
+LEVEL               THREAD
+UNITS               NANOSEC
+LOOK_BACK           100
+SPEED               1
+FLAG_ICONS          ENABLED
+NUM_OF_STATE_COLORS 1000
+YMAX_SCALE          37
+
+
+DEFAULT_SEMANTIC
+
+THREAD_FUNC          State As Is
+
+
+STATES
+0    Idle
+1    Running
+2    Not created
+3    Waiting a message
+4    Blocking Send
+5    Synchronization
+6    Test/Probe
+7    Scheduling and Fork/Join
+8    Wait/WaitAll
+9    Blocked
+10    Immediate Send
+11    Immediate Receive
+12    I/O
+13    Group Communication
+14    Tracing Disabled
+15    Others
+16    Send Receive
+
+
+STATES_COLOR
+0    {117,195,255}
+1    {0,0,255}
+2    {255,255,255}
+3    {255,0,0}
+4    {255,0,174}
+5    {179,0,0}
+6    {0,255,0}
+7    {255,255,0}
+8    {235,0,0}
+9    {0,162,0}
+10    {255,0,255}
+11    {100,100,177}
+12    {172,174,41}
+13    {255,144,26}
+14    {2,255,177}
+15    {192,224,0}
+16    {66,66,66}
+
+
+EVENT_TYPE
+6    40000001    Application
+6    40000003    Flushing Traces
+6    40000004    I/O Read
+6    40000005    I/O Write
+VALUES
+1      Begin
+0      End
+
+
+EVENT_TYPE
+6    40000012    Tracing
+VALUES
+0      Disabled
+1      Enabled
+
+
+EVENT_TYPE
+6    40000011    I/O Size
+
+
+EVENT_TYPE
+1    50100001    Send Size in MPI Global OP
+1    50100002    Recv Size in MPI Global OP
+1    50100003    Root in MPI Global OP
+1    50100004    Communicator in MPI Global OP
+
+
+EVENT_TYPE
+1    51100001    Send Size in PACX Global OP
+1    51100002    Recv Size in PACX Global OP
+1    51100003    Root in PACX Global OP
+1    51100004    Communicator in PACX Global OP
+
+
+EVENT_TYPE
+9   50000003    MPI Other
+VALUES
+31   MPI_Init
+0   End
+
+
+EVENT_TYPE
+7  42000050 Instr completed (PAPI_TOT_INS)
+7  42000059 Total cycles (PAPI_TOT_CYC)
+7  42000000 L1D cache misses (PAPI_L1_DCM)
+7  42009999 Active hardware counter set
+
+
+GRADIENT_COLOR
+0    {0,255,2}
+1    {0,244,13}
+2    {0,232,25}
+3    {0,220,37}
+4    {0,209,48}
+5    {0,197,60}
+6    {0,185,72}
+7    {0,173,84}
+8    {0,162,95}
+9    {0,150,107}
+10    {0,138,119}
+11    {0,127,130}
+12    {0,115,142}
+13    {0,103,154}
+14    {0,91,166}
+
+
+GRADIENT_NAMES
+0    Gradient 0
+1    Grad. 1/MPI Events
+2    Grad. 2/OMP Events
+3    Grad. 3/OMP locks
+4    Grad. 4/User func
+5    Grad. 5/User Events
+6    Grad. 6/General Events
+7    Grad. 7/Hardware Counters
+8    Gradient 8
+9    Gradient 9
+10    Gradient 10
+11    Gradient 11
+12    Gradient 12
+13    Gradient 13
+14    Gradient 14
+
+
+EVENT_TYPE
+0    60000019    User function
+VALUES
+0   End
+1   Unresolved
+2   _NOT_Found
+
+
+EVENT_TYPE
+0    60000119    User function line
+VALUES
+0   End
+1   0 (Unresolved)
+2   0 (_NOT_Found)
+
+
+EVENT_TYPE
+9    40000018    Tracing mode:
+VALUES
+1      Detailed
+2      CPU Bursts
+
+
+EVENT_TYPE
+9    9000000    Thread state: 
+VALUES
+0     NOT CREATED
+1     NOT RUNNING
+2     STARTUP
+3     SHUTDOWN
+4     ERROR
+5     IDLE
+6     RUNTIME
+7     RUNNING
+8     SYNCHRONIZATION
+9     SCHEDULING
+10     CREATION
+11     DATA TRANSFER TO DEVICE
+12     DATA TRANSFER TO HOST
+13     LOCAL DATA TRANSFER IN DEVICE
+14     DATA TRANSFER TO DEVICE
+15     DATA TRANSFER TO HOST
+16     LOCAL DATA TRANSFER IN DEVICE
+17     CACHE ALLOC/FREE
+18     YIELD
+
+EVENT_TYPE
+9    9000001    Point-to-point origin: 
+
+EVENT_TYPE
+9    9000002    Point-to-point destination: 
+
+EVENT_TYPE
+9    9000004    Thread sub-state: 
+VALUES
+0     NOT CREATED
+1     NOT RUNNING
+2     STARTUP
+3     SHUTDOWN
+4     ERROR
+5     IDLE
+6     RUNTIME
+7     RUNNING
+8     SYNCHRONIZATION
+9     SCHEDULING
+10     CREATION
+11     DATA TRANSFER TO DEVICE
+12     DATA TRANSFER TO HOST
+13     LOCAL DATA TRANSFER IN DEVICE
+17     CACHE ALLOC/FREE
+18     YIELD
+
+EVENT_TYPE
+9    9200006 Memory allocation in device cache
+VALUES
+
+EVENT_TYPE
+9    9200020 Time on Yield (in nsecs)
+VALUES
+
+EVENT_TYPE
+9    9200030 Chunk size
+VALUES
+
+EVENT_TYPE
+9    9200008 Hit in the cache
+VALUES
+
+EVENT_TYPE
+9    9200013 Create WD Id:
+VALUES
+
+EVENT_TYPE
+9    9200028 Transfer size
+VALUES
+
+EVENT_TYPE
+9    9200012 User Code (wd)
+VALUES
+
+EVENT_TYPE
+9    9200017 Lock address
+VALUES
+
+EVENT_TYPE
+9    9200029 Cache waiting for something
+VALUES
+1  registerCacheAccess() waiting for data allocation (not registered in directory)
+2  registerCacheAccess() waiting for data invalidation in another cache (new entry)
+3  registerCacheAccess() waiting for data to have no owner
+4  registerCacheAccess() waiting for data allocation (registered in directory)
+5  registerCacheAccess() waiting for data invalidation (size has changed)
+6  registerCacheAccess() waiting for data invalidation in another cache (size has changed)
+7  registerCacheAccess() waiting for data to be copied back (size has changed)
+8  registerCacheAccess() waiting for data invalidation in another cache (old version)
+9  registerCacheAccess() invalidating another cache
+10  registerCacheAccess() waiting for resize
+11  registerCacheAccess() waiting for flush
+12  freeSpaceToFit()
+13  waitInput()
+
+EVENT_TYPE
+9    9200022 Number of ready tasks in the queues
+VALUES
+
+EVENT_TYPE
+9    9200015 Create WD num. deps.
+VALUES
+
+EVENT_TYPE
+9    9200032 
+VALUES
+1  driver.c:61
+2  driver.c:63
+3  driver.c:78
+4  driver.c:80
+
+EVENT_TYPE
+9    9200005 Local copy in device memory
+VALUES
+
+EVENT_TYPE
+9    9200024 Loop lower bound
+VALUES
+
+EVENT_TYPE
+9    9200004 Transfer data to main memory
+VALUES
+
+EVENT_TYPE
+9    9200007 Memory free in device cache
+VALUES
+
+EVENT_TYPE
+9    9200019 Number of Yields
+VALUES
+
+EVENT_TYPE
+9    9200009 Copying WD inputs
+VALUES
+
+EVENT_TYPE
+9    9200023 Number tasks in the graph
+VALUES
+
+EVENT_TYPE
+9    9200031 Debug Key
+VALUES
+
+EVENT_TYPE
+9    9200010 Copying WD outputs
+VALUES
+
+EVENT_TYPE
+9    9200021 User Function Location
+VALUES
+1  It was invoked from function 'clear_mat' in construct at 'gendat.c:33'
+2  Outline from 'gendat.c:18' in 'init_tile'
+3  It was invoked from function 'matmul' in construct at 'matmul.c:95'
+4  'matmul_tile' invoked at 'matmul.c:58'
+5  It was invoked from function 'check_gather_block' in construct at 'layouts.c:73'
+6  It was invoked from function 'convert_to_linear' in construct at 'layouts.c:98'
+
+EVENT_TYPE
+9    9200018 Number of Spins
+VALUES
+
+EVENT_TYPE
+9    9200001 Nanos Runtime API
+VALUES
+1  nanos_find_slicer()
+2  nanos_wg_wait_completion()
+3  nanos_create_xxx_cond()
+4  nanos_sync_cond_wait()
+5  nanos_sync_cond_signal()
+6  nanos_destroy_sync_cond()
+7  nanos_wait_on()
+8  nanos_init_lock()
+9  nanos_set_lock()
+10  nanos_unset_lock()
+11  nanos_try_lock()
+12  nanos_destroy_lock()
+13  nanos_single_guard()
+14  nanos_team_barrier()
+15  nanos_current_wd()
+16  nanos_get_wd_id()
+17  nanos_create_xxx_wd()
+18  nanos_submit()
+19  nanos_create_wd_and_run()
+20  nanos_set_internal_wd_data()
+21  nanos_get_internal_wd_data()
+22  nanos_yield()
+23  nanos_create_team()
+24  nanos_leave_team()
+25  nanos_end_team()
+26  nanos_get_num_runnin_tasks()
+27  nanos_get_addr()
+28  nanos_copy_value()
+29  nanos_omp_barrier()
+
+EVENT_TYPE
+9    9200011 User Function Name
+VALUES
+1  Task 'clear_double'
+2  Outline from 'gendat.c:18' in 'init_tile'
+3  Task 'matmul_tile'
+4  Task 'dgemm_cublas'
+5  Task 'gather_block'
+6  Task 'scatter_block'
+
+EVENT_TYPE
+9    9200027 Inside CUDA runtime
+VALUES
+1  cudaMalloc()
+2  cudaFree()
+3  cudaMallocHost()
+4  cudaFreeHost()
+5  cudaMemcpyDeviceToHost()
+6  cudaMemcpyHostToDevice()
+7  cudaMemcpyAsyncDeviceToHost()
+8  cudaMemcpyAsyncHostToDevice()
+9  cudaInputStreamSynchronize()
+10  cudaOutputStreamSynchronize()
+11  cudaKernelStreamSynchronize()
+12  cudaDeviceSynchronize()
+13  cudaSetDevice()
+14  cudaGetDeviceProperties()
+15  cudaSetDeviceFlags()
+16  cudaGetLastError()
+17  CUDA generic event
+18  memcpy()
+
+EVENT_TYPE
+9    9200025 Loop upper
+VALUES
+
+EVENT_TYPE
+9    9200014 Create WD pointer:
+VALUES
+
+EVENT_TYPE
+9    9200002 Work Descriptor id:
+VALUES
+
+EVENT_TYPE
+9    9200026 Loop step
+VALUES
+
+EVENT_TYPE
+9    9200003 Transfer data into device cache
+VALUES
+
+EVENT_TYPE
+9    9200016 Create WD dependence pointer
+VALUES
+
+

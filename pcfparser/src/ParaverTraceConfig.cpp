@@ -184,7 +184,7 @@ void ParaverTraceConfig::addEventTypes(std::vector<EventType *> & eventTypes_) {
     }
 }
 
-bool ParaverTraceConfig::parse(string_iterator_type begin,string_iterator_type end) {
+bool ParaverTraceConfig::parse(string_iterator_type begin,string_iterator_type end, bool resend) {
     bool r = false;
     typedef classic::position_iterator2<string_iterator_type> pos_iterator_type;
     pos_iterator_type position_begin( begin, end, "-");
@@ -195,6 +195,7 @@ bool ParaverTraceConfig::parse(string_iterator_type begin,string_iterator_type e
         ParaverTraceConfigGrammar<pos_iterator_type, ParaverTraceConfig> pcfGrammar(*this);
         r = qi::phrase_parse(position_begin, position_end, pcfGrammar, SKIPPER);
     } catch (const qi::expectation_failure<pos_iterator_type> & e) {
+        if(resend) throw;
         const classic::file_position_base<std::string>&  pos =
             e.first.get_position();
         std::stringstream msg;
@@ -209,7 +210,7 @@ bool ParaverTraceConfig::parse(string_iterator_type begin,string_iterator_type e
     return r;
 }
 
-bool ParaverTraceConfig::parse(std::istream & input, const std::string & filename) {
+bool ParaverTraceConfig::parse(std::istream & input, const std::string filename, bool resend) {
     bool r = false;
     // iterate over stream input
     typedef std::istreambuf_iterator<char> base_iterator_type;
@@ -230,6 +231,7 @@ bool ParaverTraceConfig::parse(std::istream & input, const std::string & filenam
         //r = qi::phrase_parse(fwd_begin, fwd_end, pcfGrammar, SKIPPER);
         r = qi::phrase_parse(position_begin, position_end, pcfGrammar, SKIPPER);
     } catch (const qi::expectation_failure<pos_iterator_type> & e) {
+        if(resend) throw;
         const classic::file_position_base<std::string>&  pos =
             e.first.get_position();
         std::stringstream msg;
@@ -243,6 +245,70 @@ bool ParaverTraceConfig::parse(std::istream & input, const std::string & filenam
     }
 
     return r;
+}
+
+bool ParaverTraceConfig::parse(const std::string & filename, bool resend) {
+    typedef classic::position_iterator2<string_iterator_type> pos_iterator_type;
+    std::vector<qi::expectation_failure<pos_iterator_type> > exceptions;
+    std::ifstream fh(filename.c_str(), std::ios::in);
+    if(!fh.is_open()) {
+        std::runtime_error("Unable to open " + filename + " file!");
+    }
+    unsigned int nlines = 0;
+    std::string line;
+    while(fh.good()) {
+        std::getline(fh, line);
+        nlines++;
+    }
+    nlines--; // substract the eof
+    bool endLine = false;
+    unsigned int lineOffset = 0;
+    while(!endLine) {
+        fh.clear();
+        fh.seekg(0, std::ios::beg);
+        unsigned int readLines = 0;
+        for (unsigned int i=0; i < lineOffset && fh.good(); i++)
+            std::getline(fh, line);
+        std::string fileContent;
+        while(fh.good()) {
+            std::getline(fh, line);
+            fileContent += line + "\n";
+            readLines++;
+        }
+        try {
+            parse(fileContent.begin(), fileContent.end(), true);
+            endLine = true;
+        } catch(const qi::expectation_failure<pos_iterator_type> & e) {
+            exceptions.push_back(e);
+            const classic::file_position_base<std::string>&  pos =
+                e.first.get_position();
+            std::stringstream msg;
+            msg <<
+                "parse error at file " << pos.file <<
+                " line " << pos.line + lineOffset << " column " << pos.column <<
+                std::endl <<
+                "'" << e.first.get_currentline() << "'" << std::endl <<
+                std::setw(pos.column) << " " << "^- here";
+                msg<< "\nExpected: "<<e.what_<<std::endl;
+            if(!resend) std::cout << msg.str();
+            lineOffset += pos.line;
+            if(lineOffset>=nlines) endLine=true;
+        }
+    }
+    fh.close();
+    if(resend){
+        std::vector<std::string> tmp;
+        for(unsigned int i=0; i < exceptions.size(); i++){
+            const classic::file_position_base<std::string>&  pos =
+                exceptions[i].first.get_position();
+            std::string stmp = pos.file;
+            stmp += ";" + pos.line;
+            stmp += ";" + pos.column;
+            tmp.push_back(stmp);
+        }
+        BOOST_THROW_EXCEPTION(UIParaverTraceConfig::pcf_format_error(tmp));
+    }
+    return true;
 }
 
 std::string ParaverTraceConfig::toString() const {

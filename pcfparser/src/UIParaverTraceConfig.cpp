@@ -173,6 +173,15 @@ bool UIParaverTraceConfig::parse(std::istream & input, const std::string & filen
     return traceConfig->parse(input, filename);
 }
 
+ /** 
+ * \brief Function to parse the input and construct an internal representation of the pcf file. This function skips the bad format parts of the file.
+  * \param std::string object (filename)
+  * \param bool resend Resend exceptions. It sends a vector of "file;line;column" indicating errors
+  */
+bool UIParaverTraceConfig::parse(const std::string & filename, bool resend) {
+    return traceConfig->parse(filename, resend);
+}
+
 /**
  * \brief Dumps the PCF data into std::string format
  * \return The PCF data contained in the object

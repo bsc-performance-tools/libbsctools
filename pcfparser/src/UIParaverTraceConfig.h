@@ -19,6 +19,12 @@ class UIParaverTraceConfig {
 public:
     struct error : virtual std::exception, virtual boost::exception { };
     struct value_not_found : virtual error { };
+    struct pcf_format_error : virtual error {
+        // vector<"filename;line;column">
+        std::vector<std::string> excps;
+        pcf_format_error(std::vector<std::string> e) : excps(e) {}
+        ~pcf_format_error() throw() {}
+    };
 
     class Color {
     protected:
@@ -233,6 +239,13 @@ public:
      * \brief A description of the representing istream: Example a filename.
      */
     bool parse(std::istream & input, const std::string & filename);
+
+    /**
+     * \brief Function to parse the input and construct an internal representation of the pcf file. This function skips the bad format parts of the file.
+     * \param std::string object (filename)
+     * \param bool resend Resend exceptions. It sends a vector of "file;line;column" indicating errors
+     */
+    bool parse(const std::string & filename, bool resend=false);
 
     /**
      * \brief Gets all the index keys of the STATES

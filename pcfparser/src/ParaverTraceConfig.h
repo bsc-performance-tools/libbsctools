@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <iomanip>
 
 #include <boost/shared_ptr.hpp>
@@ -187,9 +188,11 @@ public:
 
     void addEventTypes(std::vector<EventType *> & eventTypes_);
 
-    bool parse(string_iterator_type begin, string_iterator_type end);
+    bool parse(string_iterator_type begin, string_iterator_type end, bool resend = false);
 
-    bool parse(std::istream & input, const std::string & filename);
+    bool parse(std::istream & input, const std::string filename, bool resend = false);
+
+    bool parse(const std::string & filename, bool resend = false);
 
     std::string toString() const;
 
