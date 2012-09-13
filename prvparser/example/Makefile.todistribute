@@ -1,0 +1,19 @@
+CXX = g++
+CXXFLAGS = -O -Wall -I../../include
+
+all: example1 example2 example3 example4
+
+example1: example1.cpp
+	$(CXX) -o $@ $< -static -L../../lib -lparavertraceparser $(CXXFLAGS)
+
+example2: example2.cpp
+	$(CXX) -o $@ $< -static -L../../lib -lparavertraceparser $(CXXFLAGS)
+
+example3: example3.cpp
+	$(CXX) -o $@ $< -static -L../../lib -lparavertraceparser $(CXXFLAGS)
+
+example4: example4.cpp
+	$(CXX) -o $@ $< -static -L../../lib -lparavertraceparser $(CXXFLAGS)
+
+clean:
+	rm example1 example2 example3 example4
