@@ -1,7 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
 libtoolize --automake --force --copy \
 && aclocal \
 && autoheader \
 && automake --gnu --add-missing --copy \
 && autoconf
+
+for dir in prvparser pcfparser
+do
+	cd $dir && ./bootstrap && cd ..
+done
