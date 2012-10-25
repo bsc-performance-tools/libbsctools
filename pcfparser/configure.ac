@@ -8,6 +8,8 @@
 # Initialize autoconf & define package name, version and bug-report address 
 AC_INIT(libparavertraceconfig, 1.0, tools@bsc.es)
 
+AC_CONFIG_AUX_DIR([.])
+
 # Safety check to ensure that the directory told with `--srcdir` contains the source code
 #AC_CONFIG_SRCDIR(src/mpitrace.c)
 
@@ -67,7 +69,7 @@ AM_INIT_AUTOMAKE
 AM_PROG_MKDIR_P
 
 # Specify the output configuration header file
-AM_CONFIG_HEADER(config.h)
+AM_CONFIG_HEADER(libtools-pcfparser-config.h)
 
 AC_PROG_CC(gcc)
 AC_PROG_CXX(g++)
@@ -87,28 +89,7 @@ AC_PROG_LIBTOOL
 # Test whether the compiler accepts function inlining
 AC_C_INLINE
 
-AC_MSG_CHECKING([for boost])
-AC_ARG_WITH(boost,
-	AC_HELP_STRING(
-		[--with-boost@<:@=ARG@:>@],
-		[Specify where boost library was installed]
-	),
-	[BoostLibDir="$withval"],
-	[BoostLibDir="."]
-)
-
-if test ! -d ${BoostLibDir} ; then
-	AC_MSG_ERROR([Invalid directory specified in --with-boost])
-fi
-
-if test ! -f ${BoostLibDir}/boost/version.hpp ; then
-	AC_MSG_ERROR([Cannot find `version.hpp` in specified boost directory])
-fi
-AC_MSG_RESULT([found in ${BoostLibDir}])
-
-BOOST_DIR=${BoostLibDir}
-AC_SUBST(BOOST_DIR)
-
+AX_PROG_BOOST
 
 #########################################
 #    Checks for user defined options    #

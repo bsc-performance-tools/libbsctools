@@ -18,7 +18,7 @@ libparavertraceconfig_la_SOURCES = $(LIBPARAVERTRACECONFIG_COREFILES)
 libparavertraceconfig_la_LIBADD  =
 libparavertraceconfig_la_LDFLAGS  =
 
-libparavertraceconfig_la_CXXFLAGS = -I $(BOOST_DIR)
-# libparavertraceconfig_la_CFLAGS = -I $(BOOST_INCLUDES)
-
+if NEED_BOOST_HOME
+libparavertraceconfig_la_CXXFLAGS = -I $(BOOST_HOME)/include
+endif
 

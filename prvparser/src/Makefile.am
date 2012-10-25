@@ -30,5 +30,7 @@ libparavertraceparser_la_SOURCES = $(LIBPARAVERTRACEPARSER_COREFILES)
 libparavertraceparser_la_LIBADD  =
 libparavertraceparser_la_LDFLAGS  =
 
-libparavertraceparser_la_CXXFLAGS = -I $(BOOST_DIR)
+if NEED_BOOST_HOME
+libparavertraceparser_la_CXXFLAGS = -I $(BOOST_HOME)/include
+endif
 

@@ -6,7 +6,7 @@
 #########################
 
 # Initialize autoconf & define package name, version and bug-report address 
-AC_INIT(libparavertraceparser, 1.0, tools@bsc.es)
+AC_INIT(libtools, 1.0, tools@bsc.es)
 
 AC_CONFIG_AUX_DIR([.])
 
@@ -66,35 +66,15 @@ AM_CONDITIONAL(OS_SOLARIS,   test "${OperatingSystem}" = "solaris" )
 
 # Initialize automake
 AM_INIT_AUTOMAKE
-AM_PROG_MKDIR_P
 
-# Specify the output configuration header file
-AM_CONFIG_HEADER(libtools-prvparser-config.h)
-
-AC_PROG_CC(gcc)
-AC_PROG_CXX(g++)
-AC_PROG_CPP
-AC_PROG_INSTALL
-AC_PROG_SED
-AC_PROG_AWK
-
-# Automake 1.10 reports a problem if this is not defined
-AM_PROG_CC_C_O
-
-# Search for libtool support
-AC_LIBTOOL_DLOPEN
-AC_ENABLE_SHARED
-AC_PROG_LIBTOOL
-
-# Test whether the compiler accepts function inlining
-AC_C_INLINE
-
-AX_PROG_BOOST
+AM_CONFIG_HEADER(libtools-config.h)
 
 #########################################
 #    Checks for user defined options    #
 #########################################
 
-AC_CONFIG_FILES([Makefile src/Makefile example/Makefile])
-AC_OUTPUT
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_SUBDIRS(pcfparser)
+AC_CONFIG_SUBDIRS(prvparser)
 
+AC_OUTPUT
