@@ -19,7 +19,7 @@ AC_DEFUN([AX_PROG_BOOST],
 	)
 	AC_MSG_RESULT([${ac_cv_boost_default}])
 
-	if test "${ac_cv_boost_default}" == "caca" ; then
+	if test "${ac_cv_boost_default}" == "yes" ; then
 
 		BOOST_enabled="yes"
 		BOOST_default="yes"
