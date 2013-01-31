@@ -1,0 +1,17 @@
+To generate a python module you must:
+
+g++ -fPIC -c UIParaverTraceConfig.cpp ParaverTraceConfig.cpp
+g++ -fPIC -c UIParaverTraceConfig_python.cpp  -I/usr/include/python2.7/ -lboost_python-py27 -lpython2.7
+g++ -o pcfparser.so -shared *.o /usr/lib/libboost_python-py27.so
+
+later you can import the so. Example:
+
+#!/usr/bin/env python
+
+import pcfparser
+
+p = pcfparser.UIParaverTraceConfig()
+p.parse("test/sampletrace.pcf", False)
+print p.getEventType_int("I/O Size")  # 40000011
+print p.getEventType_str(40000011)
+
