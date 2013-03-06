@@ -252,7 +252,7 @@ bool ParaverTraceConfig::parse(const std::string & filename, bool resend) {
     std::vector<qi::expectation_failure<pos_iterator_type> > exceptions;
     std::ifstream fh(filename.c_str(), std::ios::in);
     if(!fh.is_open()) {
-        std::runtime_error("Unable to open " + filename + " file!");
+        throw std::runtime_error("Unable to open " + filename + " file!");
     }
     unsigned int nlines = 0;
     std::string line;
