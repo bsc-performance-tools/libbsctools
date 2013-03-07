@@ -185,6 +185,9 @@ void ParaverTraceConfig::addEventTypes(std::vector<EventType *> & eventTypes_) {
 }
 
 bool ParaverTraceConfig::parse(string_iterator_type begin,string_iterator_type end, bool resend) {
+    if(begin == end) {
+        BOOST_THROW_EXCEPTION(std::runtime_error("There is nothing to parse!"));
+    }
     bool r = false;
     typedef classic::position_iterator2<string_iterator_type> pos_iterator_type;
     pos_iterator_type position_begin( begin, end, "-");
@@ -205,12 +208,19 @@ bool ParaverTraceConfig::parse(string_iterator_type begin,string_iterator_type e
         "'" << e.first.get_currentline() << "'" << std::endl <<
         std::setw(pos.column) << " " << "^- here";
         msg<< "\nExpected: "<<e.what_<<std::endl;
-        throw std::runtime_error(msg.str());
+        BOOST_THROW_EXCEPTION(std::runtime_error(msg.str()));
     }
     return r;
 }
 
 bool ParaverTraceConfig::parse(std::istream & input, const std::string filename, bool resend) {
+    input.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    try{
+        input.seekg (0, input.beg); // Checking the istream
+    }catch (std::exception & e) {
+        BOOST_THROW_EXCEPTION(std::runtime_error("Unable to parse " + filename));
+    }
+
     bool r = false;
     // iterate over stream input
     typedef std::istreambuf_iterator<char> base_iterator_type;
@@ -241,7 +251,7 @@ bool ParaverTraceConfig::parse(std::istream & input, const std::string filename,
         "'" << e.first.get_currentline() << "'" << std::endl <<
         std::setw(pos.column) << " " << "^- here";
         msg<< "\nExpected: "<<e.what_<<std::endl;
-        throw std::runtime_error(msg.str());
+        BOOST_THROW_EXCEPTION(std::runtime_error(msg.str()));
     }
 
     return r;
@@ -252,7 +262,7 @@ bool ParaverTraceConfig::parse(const std::string & filename, bool resend) {
     std::vector<qi::expectation_failure<pos_iterator_type> > exceptions;
     std::ifstream fh(filename.c_str(), std::ios::in);
     if(!fh.is_open()) {
-        throw std::runtime_error("Unable to open " + filename + " file!");
+        BOOST_THROW_EXCEPTION(std::runtime_error("Unable to open " + filename + " file!"));
     }
     unsigned int nlines = 0;
     std::string line;
