@@ -7,8 +7,7 @@
 
 #include "UIParaverTraceConfig.h"
 
-#define TESTPATH "/home/xavierp/BSC/libtools/trunk/pcfparser/src/test/"
-//#define TESTPATH "src/test/"
+#define TESTPATH "src/test/"
 
 struct SampleTrace {
     SampleTrace(){
