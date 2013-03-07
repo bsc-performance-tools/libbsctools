@@ -47,6 +47,20 @@ BOOST_AUTO_TEST_CASE( Parsing_sampletrace_pcf ){
 	delete t1;
 }
 
+
+BOOST_AUTO_TEST_CASE( Parsing_nonexistent_pcf ){
+	libparaver::UIParaverTraceConfig * t1 = new libparaver::UIParaverTraceConfig();
+	std::string filename = TESTPATH; filename += "unknownw.pcf";
+	std::filebuf fb;
+	fb.open(filename.c_str(), std::ios::in);
+	std::istream is(&fb);
+	BOOST_CHECK_THROW(t1->parse(filename), std::runtime_error);
+	BOOST_CHECK_THROW(t1->parse(is, filename), std::runtime_error);
+	fb.close();
+	delete t1;
+}
+
+
 BOOST_AUTO_TEST_CASE( Parsing_badtrace_pcf ){
     libparaver::UIParaverTraceConfig * t1 = new libparaver::UIParaverTraceConfig();
     t1->setDebug(false);
