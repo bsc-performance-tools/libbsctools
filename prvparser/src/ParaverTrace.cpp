@@ -115,7 +115,7 @@ void ParaverTrace::set_nodes(vector<ParaverTraceNode *> & value) {
 
 void ParaverTrace::parseBody (void)
 {
-	fstream input(prvFile.c_str());
+	fstream input(prvFile.c_str(), ios_base::in);
 	string line;
 
 	if (!input.good())
