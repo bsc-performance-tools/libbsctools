@@ -511,6 +511,8 @@ std::string ParaverTraceConfig::EventType::toString() const {
 }
 
 const ParaverTraceConfig::EventType::EventValuesPtr ParaverTraceConfig::EventType::getEventValues() const {
+	if (eventValues == NULL)
+		BOOST_THROW_EXCEPTION(UIParaverTraceConfig::value_not_found());
     return eventValues;
 }
 
