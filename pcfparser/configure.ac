@@ -66,7 +66,8 @@ AM_CONDITIONAL(OS_SOLARIS,   test "${OperatingSystem}" = "solaris" )
 
 # Initialize automake
 AM_INIT_AUTOMAKE
-AM_PROG_MKDIR_P
+#AM_PROG_MKDIR_P
+AC_PROG_MKDIR_P
 
 # Specify the output configuration header file
 AM_CONFIG_HEADER(libtools-pcfparser-config.h)
