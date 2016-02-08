@@ -32,7 +32,7 @@ class ParaverTraceTask {
 
     void addThread(unsigned int & thread, ParaverTraceNode * node);
 
-    inline const unsigned int get_key() const;
+    inline unsigned int get_key() const;
 
     void set_key(unsigned int value);
 
@@ -45,7 +45,7 @@ inline const vector<ParaverTraceThread *> & ParaverTraceTask::get_threads() cons
   return threads;
 }
 
-inline const unsigned int ParaverTraceTask::get_key() const {
+inline unsigned int ParaverTraceTask::get_key() const {
   return key;
 }
 

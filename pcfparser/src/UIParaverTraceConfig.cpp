@@ -31,7 +31,7 @@ void UIParaverTraceConfig::setDebug(bool value) {
  * \brief Gets the parsing output debug value
  * \return Returns the debug value true/false
  */
-const bool UIParaverTraceConfig::getDebug() const {
+bool UIParaverTraceConfig::getDebug() const {
     return traceConfig->getDebug();
 }
 
@@ -79,7 +79,7 @@ void UIParaverTraceConfig::setLook_back(int value) {
 /**
  * \brief Gets the LOOK_BACK value
  */
-const int UIParaverTraceConfig::getLook_back() const {
+int UIParaverTraceConfig::getLook_back() const {
     return traceConfig->getLook_back();
 }
 
@@ -93,7 +93,7 @@ void UIParaverTraceConfig::setSpeed(int value) {
 /**
  * \brief Gets the SPEED value
  */
-const int UIParaverTraceConfig::getSpeed() const {
+int UIParaverTraceConfig::getSpeed() const {
     return traceConfig->getSpeed();
 }
 
@@ -122,7 +122,7 @@ void UIParaverTraceConfig::setNum_of_state_colors(int value) {
 /**
  * \brief Gets the NUM_OF_STATE_COLORS value
  */
-const int UIParaverTraceConfig::getNum_of_state_colors() const {
+int UIParaverTraceConfig::getNum_of_state_colors() const {
     return traceConfig->getNum_of_state_colors();
 }
 
@@ -136,7 +136,7 @@ void UIParaverTraceConfig::setYmax_scale(int value) {
 /**
  * \brief Gets the YMAX_SCALE value
  */
-const int UIParaverTraceConfig::getYmax_scale() const {
+int UIParaverTraceConfig::getYmax_scale() const {
     return traceConfig->getYmax_scale();
 }
 

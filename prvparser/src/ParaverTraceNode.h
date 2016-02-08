@@ -25,7 +25,7 @@ class ParaverTraceNode {
 
 
   public:
-    inline const unsigned int get_nodeId() const;
+    inline unsigned int get_nodeId() const;
 
     void set_nodeId(unsigned int value);
 
@@ -34,7 +34,8 @@ class ParaverTraceNode {
     void set_cpus(vector<ParaverTraceCPU *> & value);
 
 };
-inline const unsigned int ParaverTraceNode::get_nodeId() const {
+
+inline unsigned int ParaverTraceNode::get_nodeId() const {
   return nodeId;
 }
 

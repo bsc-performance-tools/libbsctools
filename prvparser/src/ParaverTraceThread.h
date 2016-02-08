@@ -20,12 +20,13 @@ class ParaverTraceThread {
 
     virtual ~ParaverTraceThread();
 
-    inline const unsigned int get_key() const;
+    inline unsigned int get_key() const;
 
     void set_key(unsigned int value);
 
 };
-inline const unsigned int ParaverTraceThread::get_key() const {
+
+inline unsigned int ParaverTraceThread::get_key() const {
   return key;
 }
 

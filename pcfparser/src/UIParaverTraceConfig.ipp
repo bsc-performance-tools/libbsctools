@@ -1,24 +1,24 @@
 /* Color class */
 
-inline const int UIParaverTraceConfig::Color::getRed() const {
+inline int UIParaverTraceConfig::Color::getRed() const {
     return red;
 }
 
-inline const int UIParaverTraceConfig::Color::getGreen() const {
+inline int UIParaverTraceConfig::Color::getGreen() const {
     return green;
 }
 
-inline const int UIParaverTraceConfig::Color::getBlue() const {
+inline int UIParaverTraceConfig::Color::getBlue() const {
     return blue;
 }
 
 /* EventType class */
 
-inline const int UIParaverTraceConfig::EventType::getColor() const {
+inline int UIParaverTraceConfig::EventType::getColor() const {
     return color;
 }
 
-inline const int UIParaverTraceConfig::EventType::getKey() const {
+inline int UIParaverTraceConfig::EventType::getKey() const {
     return key;
 }
 

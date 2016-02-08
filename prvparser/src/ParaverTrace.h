@@ -61,7 +61,7 @@ class ParaverTrace {
     void parseHeader();
 
   public:
-    inline const unsigned long long get_lastTime() const;
+    inline unsigned long long get_lastTime() const;
 
     void set_lastTime(unsigned long long value);
 
@@ -87,10 +87,11 @@ class ParaverTrace {
 
     void set_multievents (bool multievents);
 
-    inline const bool get_multievents (void) const;
+    inline bool get_multievents (void) const;
 
 };
-inline const unsigned long long ParaverTrace::get_lastTime() const {
+
+inline unsigned long long ParaverTrace::get_lastTime() const {
   return lastTime;
 }
 
@@ -106,7 +107,7 @@ inline const vector<ParaverTraceNode *> & ParaverTrace::get_nodes() const {
   return nodes;
 }
 
-inline const bool ParaverTrace::get_multievents (void) const
+inline bool ParaverTrace::get_multievents (void) const
 {
 	return multievents;
 }

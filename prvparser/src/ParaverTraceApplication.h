@@ -38,7 +38,7 @@ class ParaverTraceApplication {
 
     void set_tasks(vector<ParaverTraceTask *> & value);
 
-    inline const unsigned int get_key() const;
+    inline unsigned int get_key() const;
 
     void set_key(unsigned int value);
 
@@ -47,7 +47,7 @@ inline const vector<ParaverTraceTask *> & ParaverTraceApplication::get_tasks() c
   return tasks;
 }
 
-inline const unsigned int ParaverTraceApplication::get_key() const {
+inline unsigned int ParaverTraceApplication::get_key() const {
   return key;
 }
 

@@ -39,15 +39,15 @@ public:
 
         virtual ~Color();
 
-        inline const int getRed() const;
+        inline int getRed() const;
         
         void setRed(int color);
 
-        inline const int getGreen() const;
+        inline int getGreen() const;
         
         void setGreen(int color);
 
-        inline const int getBlue() const;
+        inline int getBlue() const;
         
         void setBlue(int color);
 
@@ -77,7 +77,7 @@ public:
     public:
         EventValue(int key_, std::string descr_);
 
-        inline const int getKey() const;
+        inline int getKey() const;
 
         inline const std::string getDescription() const;
 
@@ -99,9 +99,9 @@ public:
 
         virtual ~EventType();
 
-        inline const int getColor() const;
+        inline int getColor() const;
 
-        inline const int getKey() const;
+        inline int getKey() const;
 
         inline const std::string getDescription() const;
 
@@ -131,7 +131,7 @@ public:
      * \brief Gets the parsing output debug value
      * \return Returns the debug value true/false
      */
-    const bool getDebug() const;
+    bool getDebug() const;
 
     /**
      * \brief Sets LEVEL in DEFAULT_OPTIONS context
@@ -167,7 +167,7 @@ public:
     /**
      * \brief Gets the LOOK_BACK value
      */
-    const int getLook_back() const;
+    int getLook_back() const;
 
     /**
      * \brief Sets the SPEED value
@@ -177,7 +177,7 @@ public:
     /**
      * \brief Gets the SPEED value
      */
-    const int getSpeed() const;
+    int getSpeed() const;
 
     /**
      * \brief Set the FLAG_ICONS value
@@ -198,7 +198,7 @@ public:
     /**
      * \brief Gets the NUM_OF_STATE_COLORS value
      */
-    const int getNum_of_state_colors() const;
+    int getNum_of_state_colors() const;
 
     /**
      * \brief Sets the YMAX_SCALE value
@@ -208,7 +208,7 @@ public:
     /**
      * \brief Gets the YMAX_SCALE value
      */
-    const int getYmax_scale() const;
+    int getYmax_scale() const;
 
     /**
      * \brief Sets the THREAD_FUNC value
