@@ -6,7 +6,7 @@
 #########################
 
 # Initialize autoconf & define package name, version and bug-report address 
-AC_INIT(libtools, 1.0.1, tools@bsc.es)
+AC_INIT(libtools, 1.0.2, tools@bsc.es)
 
 AC_CONFIG_AUX_DIR([.])
 
