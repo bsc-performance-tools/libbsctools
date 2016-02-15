@@ -1,2 +1,2 @@
-SUBDIRS = src example
+SUBDIRS = src scripts example
 

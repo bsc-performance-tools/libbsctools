@@ -1,0 +1,1 @@
++ (15/Feb/2016) Added script 'prvparser-config' to query the configuration options and library dependencies from the building system of another package that uses this parser.

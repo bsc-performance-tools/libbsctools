@@ -78,6 +78,7 @@ AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_SED
 AC_PROG_AWK
+AX_PROG_BOOST
 
 # Automake 1.10 reports a problem if this is not defined
 AM_PROG_CC_C_O
@@ -89,8 +90,6 @@ AC_PROG_LIBTOOL
 
 # Test whether the compiler accepts function inlining
 AC_C_INLINE
-
-AX_PROG_BOOST
 
 #########################################
 #    Checks for user defined options    #
