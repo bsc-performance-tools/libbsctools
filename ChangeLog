@@ -1,1 +1,2 @@
+* (03/Mar/2016) Fixed bug in 'prvparser-config' script to locate the libraries under lib or lib64, depending on the system
 + (15/Feb/2016) Added script 'prvparser-config' to query the configuration options and library dependencies from the building system of another package that uses this parser.

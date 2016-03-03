@@ -45,15 +45,15 @@ while test $# -gt 0; do
 		;;
 
 	--libs)
-		echo -L@sub_PREFIX@/lib -lparavertraceparser
+		echo -L@sub_LIBDIR@ -lparavertraceparser
 		;;
 
 	--libdir)
-		echo @sub_PREFIX@/lib
+		echo @sub_LIBDIR@
 		;;
 
 	--rpath)
-		echo -Wl,-rpath=@sub_PREFIX@/lib 
+		echo -Wl,-rpath=@sub_LIBDIR@ 
 		;;
 
 	*)
