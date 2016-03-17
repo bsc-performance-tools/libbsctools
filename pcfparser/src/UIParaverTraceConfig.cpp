@@ -173,7 +173,7 @@ bool UIParaverTraceConfig::parse(std::istream & input, const std::string & filen
     return traceConfig->parse(input, filename);
 }
 
- /** 
+ /**
  * \brief Function to parse the input and construct an internal representation of the pcf file. This function skips the bad format parts of the file.
   * \param std::string object (filename)
   * \param bool resend Resend exceptions. It sends a vector of "file;line;column" indicating errors
@@ -309,7 +309,21 @@ std::ostream & operator<<(std::ostream & os, const UIParaverTraceConfig & ptrace
     return os<<ptraceConfig.toString();
 }
 
+void UIParaverTraceConfig::setEventValues( unsigned int eventTypeKey, std::map< unsigned int, std::string >& values )
+{
+  traceConfig->setEventValues( eventTypeKey, values );
+}
 
+
+std::vector< std::vector< unsigned int > > UIParaverTraceConfig::getGroupedEventTypes() const
+{
+  return traceConfig->getGroupedEventTypes();
+}
+
+
+std::ostream & operator<<(std::ostream & os, const UIParaverTraceConfig & ptraceConfig) {
+    return os<<ptraceConfig.toString();
+}
 
 
 
@@ -392,6 +406,11 @@ UIParaverTraceConfig::EventType::~EventType() {
 std::string UIParaverTraceConfig::EventType::toString() const {
     return "";
 }
+
+std::string UIParaverTraceConfig::EventType::toStringWithoutValues() const {
+    return "";
+}
+
 
 /* EventValues class */
 

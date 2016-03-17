@@ -52,7 +52,7 @@ public:
         void setBlue(int color);
 
         bool operator==(const Color & sc) const;
-        
+
         bool operator!=(const Color & sc) const;
 
         virtual std::string toString() const;
@@ -106,6 +106,7 @@ public:
         inline const std::string getDescription() const;
 
         virtual std::string toString() const;
+        virtual std::string toStringWithoutValues() const;
 
         EventType & operator=(const EventType & eventType);
     };
@@ -335,6 +336,10 @@ public:
      */
     std::vector<unsigned int > getEventValues(unsigned int eventTypeKey) const;
 
+    std::vector< std::vector< unsigned int > > getGroupedEventTypes() const;
+
+
+    void setEventValues( unsigned int eventTypeKey, std::map< unsigned int, std::string >& values );
 
 protected:
     ParaverTraceConfig * traceConfig;

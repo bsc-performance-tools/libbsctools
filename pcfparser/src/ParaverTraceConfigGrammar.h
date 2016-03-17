@@ -54,7 +54,12 @@ function<setEventValues_Impl> const setEventValues = setEventValues_Impl();
 
 namespace libparaver {
 
+#ifdef WIN32
+typedef BOOST_TYPEOF(SKIPPER) skipper_type_;
+#define skipper_type skipper_type_
+#else
 typedef BOOST_TYPEOF(SKIPPER) skipper_type;
+#endif
 
 template<class Iterator, class ActionHandler>
 class ParaverTraceConfigGrammar : public qi::grammar<Iterator, skipper_type> {
