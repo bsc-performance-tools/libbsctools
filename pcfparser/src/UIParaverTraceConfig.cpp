@@ -305,10 +305,6 @@ std::vector<unsigned int > UIParaverTraceConfig::getEventValues(unsigned int eve
     return traceConfig->getEventValues(eventTypeKey);
 }
 
-std::ostream & operator<<(std::ostream & os, const UIParaverTraceConfig & ptraceConfig) {
-    return os<<ptraceConfig.toString();
-}
-
 void UIParaverTraceConfig::setEventValues( unsigned int eventTypeKey, std::map< unsigned int, std::string >& values )
 {
   traceConfig->setEventValues( eventTypeKey, values );
