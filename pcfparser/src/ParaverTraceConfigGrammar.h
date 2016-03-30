@@ -9,7 +9,8 @@
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_object.hpp>
-#include <boost/spirit/home/phoenix/container.hpp>
+//#include <boost/spirit/home/phoenix/container.hpp>
+#include <boost/spirit/include/phoenix_container.hpp>
 
 #include <boost/spirit/include/phoenix_function.hpp>
 
@@ -31,7 +32,8 @@ namespace phoenix
 {
 struct setEventValues_Impl
 {
-    template <typename C, typename F>
+    //template <typename C, typename F>
+    template <typename C>
     struct result
     {
         typedef void type;

@@ -1,6 +1,8 @@
 #ifndef _PARAVER_TRACE_CONFIG_H
 #define _PARAVER_TRACE_CONFIG_H
 
+#define BOOST_SPIRIT_USE_PHOENIX_V3 1
+
 #include <map>
 #include <string>
 #include <iostream>
