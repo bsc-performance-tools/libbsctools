@@ -330,6 +330,8 @@ public:
      */
     std::vector<unsigned int > getEventTypes() const;
 
+    void eraseEvent( unsigned int eventTypeKey );
+
     /**
      * \brief This method returns an integer vector with a list of event value keys from an event type key.
      * \return An integer vector with the list of event value keys.

@@ -216,6 +216,8 @@ public:
 
     std::vector<unsigned int > getEventTypes() const;
 
+    void eraseEvent( unsigned int eventTypeKey );
+
     std::vector<unsigned int > getEventValues(unsigned int eventTypeKey) const;
 
     std::vector< std::vector< unsigned int > > getGroupedEventTypes() const;
