@@ -1,3 +1,5 @@
+* (08/May/2017) Added namespace boost to calls to ref for compatibility with
+gcc 6+
 * (28/Jun/2016) Changed package name to libbsctools
 * (31/Mar/2016) Fixed bug in pcfparser that enables compatibility with newer versions of boost > 1.56. Upgraded to 1.0.4.
 * (03/Mar/2016) Fixed bug in 'prvparser-config' script to locate the libraries under lib or lib64, depending on the system

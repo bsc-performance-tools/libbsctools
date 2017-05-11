@@ -1,0 +1,2 @@
+BASE_DIR             = $(top_srcdir)
+PCFPARSER_SRC_DIR    = $(top_srcdir)/src

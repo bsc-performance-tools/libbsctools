@@ -93,10 +93,10 @@ ParaverBodyGrammar<Actions>::definition<ScannerT>::definition(const ParaverBodyG
 	prvbody_rule = (skip_rule | state_rule | event_rule | communication_rule | communicator_rule ) >> end_p;
 
 	skip_rule = ("#" >> (*anychar_p)[assign_a(self.Comment)])
-			[bind(&Actions::processComment, ref(actions), ref(self.Comment))];
+			[boost::bind(&Actions::processComment, boost::ref(actions), boost::ref(self.Comment))];
 	
 	communicator_rule = ("c" >> (*anychar_p)[assign_a(self.Communicator)])
-			[bind(&Actions::processCommunicator, ref(actions), ref(self.Communicator))];
+			[boost::bind(&Actions::processCommunicator, boost::ref(actions), boost::ref(self.Communicator))];
 
 	state_rule = 
 		("1:" >>
@@ -107,18 +107,18 @@ ParaverBodyGrammar<Actions>::definition<ScannerT>::definition(const ParaverBodyG
 		big_uint[assign_a(self.State.Begin_Timestamp)] >> ':' >>
 		big_uint[assign_a(self.State.End_Timestamp)] >> ':' >>
 		uint_p[assign_a(self.State.State)])
-		[bind(&Actions::processState, ref(actions), ref(self.State))];
+		[boost::bind(&Actions::processState, boost::ref(actions), boost::ref(self.State))];
 
 	event_rule = 
-		(str_p("2:")[bind(&Actions::clearEvent, ref(actions), ref(self.MultiEvent))] >>
+		(str_p("2:")[boost::bind(&Actions::clearEvent, boost::ref(actions), boost::ref(self.MultiEvent))] >>
 		uint_p[assign_a(self.MultiEvent.ObjectID.cpu)] >> ':' >>
 		uint_p[assign_a(self.MultiEvent.ObjectID.ptask)] >> ':' >>
 		uint_p[assign_a(self.MultiEvent.ObjectID.task)] >> ':' >>
 		uint_p[assign_a(self.MultiEvent.ObjectID.thread)] >> ':' >>
 		big_uint[assign_a(self.MultiEvent.Timestamp)] >>
 		+(':' >>big_uint[assign_a(self.Event.Type)] >> ':' >> big_uint[assign_a(self.Event.Value)])
-			[bind(&Actions::newEvent, ref(actions), ref(self.MultiEvent), ref(self.Event))])
-		[bind(&Actions::processEvents, ref(actions), ref(self.MultiEvent))];
+			[boost::bind(&Actions::newEvent, boost::ref(actions), boost::ref(self.MultiEvent), boost::ref(self.Event))])
+		[boost::bind(&Actions::processEvents, boost::ref(actions), boost::ref(self.MultiEvent))];
 
 	communication_rule = 
 		("3:" >>
@@ -136,7 +136,7 @@ ParaverBodyGrammar<Actions>::definition<ScannerT>::definition(const ParaverBodyG
 		big_uint[assign_a(self.Comm.Physical_Recv)] >> ':' >>
 		uint_p[assign_a(self.Comm.Size)] >> ':' >>
 		uint_p[assign_a(self.Comm.Tag)])
-		[bind(&Actions::processCommunication, ref(actions), ref(self.Comm))];
+		[boost::bind(&Actions::processCommunication, boost::ref(actions), boost::ref(self.Comm))];
 
 	BOOST_SPIRIT_DEBUG_NODE(prvbody_rule);
 	BOOST_SPIRIT_DEBUG_NODE(skip_rule);

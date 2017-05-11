@@ -1,3 +1,4 @@
+include $(top_srcdir)/PATHS
 
 # Include this files/directories for the package generation
 EXTRA_DIST = UIParaverTraceConfig.ipp ParaverTraceConfig.ipp ParaverTraceConfigGrammar.ipp
@@ -15,10 +16,10 @@ LIBPARAVERTRACECONFIG_COREFILES= \
 
 libparavertraceconfig_la_SOURCES = $(LIBPARAVERTRACECONFIG_COREFILES)
 
-libparavertraceconfig_la_LIBADD  =
-libparavertraceconfig_la_LDFLAGS  =
+libparavertraceconfig_la_LIBADD =
+libparavertraceconfig_la_LDFLAGS =
+libparavertraceconfig_la_CXXFLAGS = -I$(PCFPARSER_SRC_DIR)
 
 if NEED_BOOST_HOME
-libparavertraceconfig_la_CXXFLAGS = -I $(BOOST_HOME)/include
+libparavertraceconfig_la_CXXFLAGS += -I $(BOOST_HOME)/include
 endif
-

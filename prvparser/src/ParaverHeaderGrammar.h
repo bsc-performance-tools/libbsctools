@@ -124,7 +124,7 @@ ParaverHeaderGrammar<Actions>::definition<ScannerT>::definition(const ParaverHea
      ;
   
   lasttime
-     = bigint_p[bind(&Actions::set_lastTime, ref(actions), _1)]
+     = bigint_p[boost::bind(&Actions::set_lastTime, boost::ref(actions), _1)]
      ;
   
   hard_architecture
@@ -144,14 +144,14 @@ ParaverHeaderGrammar<Actions>::definition<ScannerT>::definition(const ParaverHea
   
   threads_by_node
      = (int_p[assign_a(self.int3)] >> ':'
-     >> int_p[assign_a(self.int4)])[bind(&Actions::addTasksToAppl, ref(actions), ref(self.int1), ref(self.int2), ref(self.int3), ref(self.int4))]
+     >> int_p[assign_a(self.int4)])[boost::bind(&Actions::addTasksToAppl, boost::ref(actions), boost::ref(self.int1), boost::ref(self.int2), boost::ref(self.int3), boost::ref(self.int4))]
      ;
   
   units = !('_' >> (str_p("ns") | str_p("us") | str_p("ms") | str_p("s") | str_p("mm") | str_p("h")) );
-  nnodes = int_p[bind(&Actions::setNumberOfNodes, ref(actions), _1)];
+  nnodes = int_p[boost::bind(&Actions::setNumberOfNodes, boost::ref(actions), _1)];
   cpus_by_node = int_p;
-  nappl = int_p[bind(&Actions::setNumberOfApplications, ref(actions), _1)];
-  ntasks = int_p[bind(&Actions::setNumberOfTasksForAppl, ref(actions), ref(self.int1), _1)];
+  nappl = int_p[boost::bind(&Actions::setNumberOfApplications, boost::ref(actions), _1)];
+  ntasks = int_p[boost::bind(&Actions::setNumberOfTasksForAppl, boost::ref(actions), boost::ref(self.int1), _1)];
   communicators = int_p;
   
   BOOST_SPIRIT_DEBUG_NODE(prvheader);
