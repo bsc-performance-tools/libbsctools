@@ -1,3 +1,4 @@
+* (24/May/2018) Standardise versioning
 * (08/May/2017) Added namespace boost to calls to ref for compatibility with
 gcc 6+
 * (28/Jun/2016) Changed package name to libbsctools

@@ -5,8 +5,14 @@
 #    Initializations    #
 #########################
 
+m4_define([libbsctools_major], [1])
+m4_define([libbsctools_minor], [0])
+m4_define([libbsctools_micro], [4])
+
+m4_define([libbsctools_version], [libbsctools_major.libbsctools_minor.libbsctools_micro])
+
 # Initialize autoconf & define package name, version and bug-report address 
-AC_INIT(libbsctools, 1.0.4, tools@bsc.es)
+AC_INIT(libbsctools, [libbsctools_version], tools@bsc.es)
 
 AC_CONFIG_AUX_DIR([.])
 
