@@ -14,7 +14,7 @@ $(PRVPARSER_CONFIG): $(PRVPARSER_CONFIG).in
 	chmod u+x $@
 
 install-data-hook:
-	chmod u+x ${bindir}/$(PRVPARSER_CONFIG)
+	chmod u+x $(DESTDIR)${bindir}/$(PRVPARSER_CONFIG)
 
 clean-local:
 	rm -f $(PRVPARSER_CONFIG) 

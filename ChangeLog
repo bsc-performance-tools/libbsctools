@@ -1,3 +1,4 @@
+* (31/May/2018) Adds missing $(DESTDIR) in the install paths to allow RPM generation (closes #1)
 * (24/May/2018) Standardise versioning
 * (08/May/2017) Added namespace boost to calls to ref for compatibility with
 gcc 6+
