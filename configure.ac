@@ -7,7 +7,7 @@
 
 m4_define([libbsctools_major], [1])
 m4_define([libbsctools_minor], [0])
-m4_define([libbsctools_micro], [5])
+m4_define([libbsctools_micro], [6])
 
 m4_define([libbsctools_version], [libbsctools_major.libbsctools_minor.libbsctools_micro])
 
