@@ -40,15 +40,15 @@ public:
         virtual ~Color();
 
         inline int getRed() const;
-        
+
         void setRed(int color);
 
         inline int getGreen() const;
-        
+
         void setGreen(int color);
 
         inline int getBlue() const;
-        
+
         void setBlue(int color);
 
         bool operator==(const Color & sc) const;
@@ -307,6 +307,13 @@ public:
      * \return The textual description from eventTypeValue.
      */
     std::string getEventType(const int eventTypeKey) const;
+
+    /**
+     * \brief This method returns the precision for event type key.
+     * \param eventTypeKey This is the numerical key of the event type.
+     * \return The precision expressed in number of decimals
+     */
+    int getEventTypePrecision( const int eventTypeKey ) const;
 
     /**
      * \brief This method returns the numeric key for an event value that belongs to an event type key.

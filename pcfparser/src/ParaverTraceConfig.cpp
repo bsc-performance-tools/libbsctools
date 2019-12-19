@@ -185,6 +185,16 @@ void ParaverTraceConfig::addEventTypes(std::vector<EventType *> & eventTypes_) {
     }
 }
 
+void ParaverTraceConfig::setPrecisionToEventTypes(std::vector<EventType *> & whichEventTypes, int precision)
+{
+  for( std::vector<EventType *>::iterator it = whichEventTypes.begin(); it != whichEventTypes.end(); ++it )
+  {
+    (*it)->setPrecision( precision );
+  }
+}
+
+
+
 bool ParaverTraceConfig::parse(string_iterator_type begin,string_iterator_type end, bool resend) {
     if(begin == end) {
         BOOST_THROW_EXCEPTION(std::runtime_error("There is nothing to parse!"));
@@ -400,9 +410,23 @@ std::string ParaverTraceConfig::toString() const {
       for ( std::vector< unsigned int >::const_iterator itType = (*itGroup).begin(); itType != (*itGroup).end(); ++itType )
       {
         if ( itType == --(*itGroup).end() )
+#ifdef WIN32
+        {
+          EventType *tmp = event_types.find( (int)(*itType) )->second;
+          str += tmp->toString() + "\n";
+        }
+#else
           str += event_types.at( (int)(*itType) )->toString() + "\n";
+#endif
         else
+#ifdef WIN32
+        {
+          EventType *tmp = event_types.find( (int)(*itType) )->second;
+          str += tmp->toStringWithoutValues() + "\n";
+        }
+#else
           str += event_types.at( (int)(*itType) )->toStringWithoutValues() + "\n";
+#endif
       }
 
       str += "\n\n";
@@ -440,6 +464,15 @@ std::string ParaverTraceConfig::getEventType(const int eventTypeKey) const {
         BOOST_THROW_EXCEPTION(UIParaverTraceConfig::value_not_found());
     }
     return event_types.find(eventTypeKey)->second->getDescription();
+}
+
+ int ParaverTraceConfig::getEventTypePrecision( const int eventTypeKey ) const
+ {
+  if( event_types.find( eventTypeKey ) == event_types.end() )
+  {
+    BOOST_THROW_EXCEPTION( UIParaverTraceConfig::value_not_found() );
+  }
+  return event_types.find( eventTypeKey )->second->getPrecision();
 }
 
 int ParaverTraceConfig::getEventValue(const int eventTypeKey, const std::string eventValue) const {
@@ -489,6 +522,7 @@ std::vector< std::vector< unsigned int > > ParaverTraceConfig::getGroupedEventTy
   event_types_type::const_iterator firstType = event_types.begin();
   event_types_type::const_iterator currentType = firstType;
 
+  int firstTypePrecision = (*firstType).second->getPrecision();
   EventType::EventValuesPtr firstTypeValues;
 
   currentGroup.push_back( (unsigned int)(*currentType).first );
@@ -510,16 +544,22 @@ std::vector< std::vector< unsigned int > > ParaverTraceConfig::getGroupedEventTy
     catch ( UIParaverTraceConfig::value_not_found )
     {}
 
-    if ( currentTypeValues != firstTypeValues )
+    int currentTypePrecision = (*currentType).second->getPrecision();
+
+    if ( currentTypeValues != firstTypeValues ||
+         currentTypePrecision != firstTypePrecision )
     {
       groupedEventTypes.push_back( currentGroup );
-      firstType = currentType;
+
       firstTypeValues = currentTypeValues;
+      firstTypePrecision = currentTypePrecision;
       currentGroup.clear();
     }
 
     currentGroup.push_back( (unsigned int)(*currentType).first );
   }
+
+  groupedEventTypes.push_back( currentGroup );
 
   return groupedEventTypes;
 }
@@ -567,8 +607,8 @@ std::string ParaverTraceConfig::GradientColor::toString() const {
 /* EventType class */
 
 ParaverTraceConfig::EventType::EventType(int color_, int key_, std::string descr_):
-        UIParaverTraceConfig::EventType(color_, key_, descr_) {
-}
+        UIParaverTraceConfig::EventType(color_, key_, descr_), precision( 0 )
+{}
 
 
 void ParaverTraceConfig::EventType::setEventValues(EventValues * eventValues_) {
@@ -583,6 +623,18 @@ void ParaverTraceConfig::EventType::setEventValues( std::map< unsigned int, std:
 }
 
 
+int ParaverTraceConfig::EventType::getPrecision() const
+{
+  return precision;
+}
+
+
+void ParaverTraceConfig::EventType::setPrecision( int whichPrecision )
+{
+  precision = whichPrecision;
+}
+
+
 std::string ParaverTraceConfig::EventType::toString() const {
     std::string str = "";
     str += boost::lexical_cast<std::string>(color) + "\t";
@@ -592,6 +644,8 @@ std::string ParaverTraceConfig::EventType::toString() const {
         str += "\nVALUES\n";
         str += eventValues->toString();
     }
+    if( precision > 0 )
+      str += "\nPRECISION\t" + boost::lexical_cast<std::string>(precision) + "\n";
     return str;
 }
 

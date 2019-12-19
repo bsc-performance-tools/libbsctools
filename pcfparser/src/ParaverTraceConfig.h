@@ -80,11 +80,15 @@ public:
 
         void setEventValues( std::map< unsigned int, std::string > &values );
 
+        int getPrecision() const;
+        void setPrecision( int whichPrecision );
+
         virtual std::string toString() const;
         virtual std::string toStringWithoutValues() const;
 
     protected:
         EventValuesPtr eventValues;
+        int precision;
 
     };
 
@@ -196,6 +200,8 @@ public:
 
     void addEventTypes(std::vector<EventType *> & eventTypes_);
 
+    void setPrecisionToEventTypes(std::vector<EventType *> & whichEventTypes, int precision);
+
     bool parse(string_iterator_type begin, string_iterator_type end, bool resend = false);
 
     bool parse(std::istream & input, const std::string filename, bool resend = false);
@@ -207,6 +213,8 @@ public:
     int getEventType(const std::string eventTypeValue) const;
 
     std::string getEventType(const int eventTypeKey) const;
+
+    int getEventTypePrecision( const int eventTypeKey ) const;
 
     std::vector<unsigned int> getValues() const;
 
